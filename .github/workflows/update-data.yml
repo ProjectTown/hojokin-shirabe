@@ -17,7 +17,17 @@ name: 補助金データの日次更新と公開
 on:
   schedule:
     - cron: "0 21 * * *" # 毎日 06:00 JST
-  workflow_dispatch: # 手動実行用
+  workflow_dispatch:
+    inputs:
+      simulate_fetch_failure:
+        description: "API障害を模擬して、退避動作を確認する"
+        type: boolean
+        default: false
+  push:
+    branches: [main]
+    paths-ignore:
+      - "data/**" # 自動更新のコミットで再実行しないため
+      - "**/*.md"
 
 permissions:
   contents: write
@@ -46,6 +56,9 @@ jobs:
       - name: 補助金データを取得
         id: fetch
         continue-on-error: true
+        env:
+          # 手動実行で「障害を模擬」を選んだ場合だけ、到達しない先を向けて失敗させる
+          JGRANTS_API_BASE: ${{ inputs.simulate_fetch_failure && 'https://invalid.example.invalid' || '' }}
         run: npm run fetch
 
       # 取得に失敗した場合、normalize が直前の subsidies.json を維持する。
