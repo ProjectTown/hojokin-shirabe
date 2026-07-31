@@ -1,0 +1,110 @@
+---
+import "../styles/global.css";
+import { dataset, dataAgeDays, isStale } from "../lib/data";
+
+/**
+ * Cloudflare Web Analytics のトークン。
+ * 設定されている時だけ計測タグを出す。Cookieを使わず個人の追跡もしない方式。
+ * 未設定なら一切のスクリプトを出力しない。
+ */
+const beaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN ?? "";
+
+interface Props {
+  title: string;
+  description: string;
+  /** 検索結果ページなど、検索エンジンに載せたくないページで true */
+  noindex?: boolean;
+  canonicalPath?: string;
+}
+
+const { title, description, noindex = false, canonicalPath } = Astro.props;
+const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
+const canonical = canonicalPath ? `${site}${canonicalPath}` : `${site}${Astro.url.pathname}`;
+const updated = new Date(dataset.lastSuccessfulFetch ?? dataset.sourceUpdatedAt).toLocaleDateString("ja-JP");
+const stale = isStale();
+const ageDays = dataAgeDays();
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex,follow" />}
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta name="format-detection" content="telephone=no" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2312603f'/%3E%3Ctext x='16' y='23' font-size='19' text-anchor='middle' fill='%23fff' font-family='sans-serif'%3E補%3C/text%3E%3C/svg%3E"
+    />
+  </head>
+  <body>
+    {stale && (
+      <div class="stale-banner">
+        <div class="wrap">
+          <strong>ご注意:</strong> データの自動更新が{ageDays}日間止まっています（最終取得 {updated}）。
+          受付終了・内容変更が反映されていない可能性があります。必ず公式ページでご確認ください。
+        </div>
+      </div>
+    )}
+
+    <header class="site">
+      <div class="wrap">
+        <a class="brand" href="/">補助金しらべ</a>
+        <nav>
+          <a href="/search/">条件で探す</a>
+          <a href="/area/">地域から</a>
+          <a href="/industry/">業種から</a>
+          <a href="/deadline/">締切が近い順</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <slot />
+    </main>
+
+    <footer class="site">
+      <div class="wrap">
+        <h2>このサイトについて</h2>
+        <ul>
+          <li>
+            掲載情報はデジタル庁が公開する補助金電子申請システム「Jグランツ」の公開APIを出典としています。
+            データ取得日: {updated}
+          </li>
+          <li>
+            <strong>本サイトは制度の内容を整理して表示するものであり、補助金の受給可否・対象該当性を判定するものではありません。</strong>
+            申請の可否および最終的な条件は、必ず各制度の公式ページと公募要領でご確認ください。
+          </li>
+          <li>
+            掲載内容には誤り・更新遅れが含まれる可能性があります。本サイトの情報を用いて生じた損害について、運営者は責任を負いません。
+          </li>
+          <li>
+            本サイトは会員登録不要です。氏名・メールアドレス・会社情報などの個人情報は一切収集しません。
+            問い合わせ窓口は設けていません。制度に関するご質問は各制度の公式窓口へお願いします。
+          </li>
+        </ul>
+        <nav>
+          <a href="/about/">サイトの説明と免責事項</a>
+          <a href="https://www.jgrants-portal.go.jp/" rel="noopener nofollow">Jグランツ公式サイト</a>
+          <a href="https://developers.digital.go.jp/documents/jgrants/api/" rel="noopener nofollow">出典API</a>
+        </nav>
+        <p>© 補助金しらべ / 出典: デジタル庁 Jグランツ公開API</p>
+      </div>
+    </footer>
+
+    {beaconToken && (
+      <script
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={`{"token":"${beaconToken}"}`}
+      />
+    )}
+  </body>
+</html>

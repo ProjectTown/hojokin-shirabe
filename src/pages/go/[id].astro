@@ -1,0 +1,41 @@
+---
+/**
+ * 公式サイトへの中継ページ。
+ *
+ * 目的は計測。トラッキングスクリプトもCookieも使わず、
+ * 「このページが何回表示されたか」＝「公式サイトへ何回遷移したか」として数えられるようにする。
+ * 訪問者の識別は行わず、個人情報も送信しない。
+ */
+import { subsidies } from "../../lib/data";
+
+export function getStaticPaths() {
+  return subsidies.map((s) => ({ params: { id: s.id }, props: { s } }));
+}
+
+const { s } = Astro.props;
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta http-equiv="refresh" content={`0; url=${s.officialUrl}`} />
+    <title>公式ページへ移動しています…</title>
+    <style>
+      body { font-family: system-ui, "Hiragino Sans", "Noto Sans JP", sans-serif; margin: 0; padding: 48px 20px; line-height: 1.8; color: #1b2430; background: #fff; }
+      .box { max-width: 620px; margin: 0 auto; }
+      a { color: #12603f; }
+      @media (prefers-color-scheme: dark) { body { background: #14181d; color: #e8ecf1; } a { color: #63c69b; } }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <p>「{s.title}」の公式ページへ移動しています…</p>
+      <p>自動で移動しない場合は、こちらを開いてください。</p>
+      <p><a href={s.officialUrl} rel="noopener nofollow">{s.officialUrl}</a></p>
+      <p><a href={`/s/${s.id}/`}>← 補助金しらべの説明ページに戻る</a></p>
+    </div>
+  </body>
+</html>

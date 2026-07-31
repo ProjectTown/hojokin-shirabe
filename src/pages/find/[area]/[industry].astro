@@ -1,0 +1,79 @@
+---
+/**
+ * 「地域 × 業種」の組み合わせページ。
+ *
+ * 該当0件の組み合わせも含めて全て生成する。理由は計測のため:
+ * どの条件が使われたか / そのうち何割が0件だったかを、
+ * トラッキングスクリプトなしでページの表示回数だけから集計できるようにする。
+ * 0件ページは noindex にして検索結果には出さない。
+ */
+import Base from "../../../layouts/Base.astro";
+import SubsidyCard from "../../../components/SubsidyCard.astro";
+import { subsidies, PREF_SLUG, INDUSTRY_SLUG, slugToPref, slugToIndustry } from "../../../lib/data";
+
+export function getStaticPaths() {
+  const paths = [];
+  for (const [pref, areaSlug] of Object.entries(PREF_SLUG)) {
+    for (const [industry, industrySlug] of Object.entries(INDUSTRY_SLUG)) {
+      paths.push({ params: { area: areaSlug, industry: industrySlug }, props: { pref, industry } });
+    }
+  }
+  return paths;
+}
+
+const { pref, industry } = Astro.props;
+const results = subsidies.filter((s) => s.areas.includes(pref) && s.industries.includes(industry));
+const empty = results.length === 0;
+
+const title = `${pref}の${industry}が対象の補助金${empty ? "" : `${results.length}件`}｜補助金しらべ`;
+const description = empty
+  ? `${pref}・${industry}の条件に一致する募集中の補助金は、現在ありません。条件を広げて探せます。`
+  : `${pref}で${industry}が対象になる募集中の補助金を${results.length}件掲載。上限額・補助率・締切を横並びで比較できます。`;
+
+// 近い条件の逃げ道
+const sameArea = subsidies.filter((s) => s.areas.includes(pref)).length;
+const sameIndustry = subsidies.filter((s) => s.industries.includes(industry)).length;
+---
+
+<Base title={title} description={description} noindex={results.length < 2}>
+  <p class="crumbs">
+    <a href="/">トップ</a> ／ <a href="/search/">条件で探す</a> ／ {pref} × {industry}
+  </p>
+
+  <h1>{pref}の{industry}を対象にした補助金</h1>
+
+  <div class="result-head">
+    <span class="n">{results.length}件</span>
+    <span class="lead" style="margin:0">設備整備・IT導入の分野で現在募集中のもの</span>
+  </div>
+
+  {empty ? (
+    <>
+      <div class="empty">
+        <p><b>この条件に一致する募集中の補助金は見つかりませんでした。</b></p>
+        <p>公募は随時入れ替わります。条件を1つ外して探すと見つかることがあります。</p>
+      </div>
+      <ul class="facets" style="margin-top:20px">
+        <li><a href={`/area/${PREF_SLUG[pref]}/`}>{pref}の補助金をすべて見る <span class="count">{sameArea}件</span></a></li>
+        <li><a href={`/industry/${INDUSTRY_SLUG[industry]}/`}>{industry}向けをすべて見る <span class="count">{sameIndustry}件</span></a></li>
+        <li><a href="/deadline/">締切が近い順に全件を見る</a></li>
+      </ul>
+    </>
+  ) : (
+    <ul class="card-list">
+      {results.map((s) => <SubsidyCard s={s} />)}
+    </ul>
+  )}
+
+  <div class="notice">
+    掲載は公開データの整理であり、<strong>この条件に当てはまれば受給できることを示すものではありません。</strong>
+    対象要件は各制度の公募要領で必ずご確認ください。
+  </div>
+
+  <h2>条件を変えて探す</h2>
+  <ul class="facets">
+    <li><a href={`/area/${PREF_SLUG[pref]}/`}>{pref}の一覧</a></li>
+    <li><a href={`/industry/${INDUSTRY_SLUG[industry]}/`}>{industry}の一覧</a></li>
+    <li><a href="/search/">別の条件で探す</a></li>
+  </ul>
+</Base>

@@ -1,0 +1,111 @@
+---
+import Base from "../../layouts/Base.astro";
+
+/**
+ * キーワード検索の結果ページ。
+ *
+ * 検索語は URL のハッシュ(#q=...)に入る。ハッシュはHTTPリクエストに含まれないため、
+ * 入力語がサーバーやアクセス集計に残ることはない。
+ * 0件だった場合のみ /search/none/ へ置き換え遷移する。これにより
+ * 「検索結果ゼロ率」をトラッキングスクリプトなしでページ表示回数から算出できる。
+ */
+---
+
+<Base
+  title="検索結果｜補助金しらべ"
+  description="キーワードに一致する募集中の補助金を表示します。"
+  noindex={true}
+  canonicalPath="/search/"
+>
+  <p class="crumbs"><a href="/">トップ</a> ／ <a href="/search/">条件で探す</a> ／ 検索結果</p>
+  <h1>検索結果</h1>
+
+  <div class="result-head">
+    <span class="n" id="count">…</span>
+    <span class="lead" style="margin:0">キーワード: <b id="term">（読み込み中）</b></span>
+  </div>
+
+  <ul class="card-list" id="results"></ul>
+
+  <p style="margin-top:24px"><a href="/search/">条件を変えて探す</a></p>
+
+  <div class="notice">
+    表示は候補の一覧です。<strong>受給できることを示すものではありません。</strong>
+    各制度の対象要件は公式ページでご確認ください。
+  </div>
+</Base>
+
+<script is:inline>
+  (function () {
+    var termEl = document.getElementById("term");
+    var countEl = document.getElementById("count");
+    var listEl = document.getElementById("results");
+    var cache = null;
+
+    function esc(s) {
+      return String(s).replace(/[&<>"]/g, function (c) {
+        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+      });
+    }
+    function daysLeft(iso) {
+      if (!iso) return null;
+      return Math.ceil((new Date(iso).getTime() - Date.now()) / 86400000);
+    }
+
+    function render(q, items) {
+      var terms = q.split(/[\s　]+/).filter(Boolean);
+      var hits = items.filter(function (it) {
+        var hay = it.t + " " + it.a + " " + it.n + " " + it.s;
+        return terms.every(function (t) { return hay.indexOf(t) !== -1; });
+      });
+
+      if (hits.length === 0) {
+        // 0件のときだけ別URLへ。検索語はハッシュのまま送信されない。
+        location.replace("/search/none/#q=" + encodeURIComponent(q));
+        return;
+      }
+
+      countEl.textContent = hits.length + "件";
+      listEl.innerHTML = hits
+        .map(function (it) {
+          var d = daysLeft(it.e);
+          var pill = d !== null && d <= 14 ? "pill-urgent" : "pill-deadline";
+          var left = d !== null && d >= 0 ? "（あと" + d + "日）" : "";
+          return (
+            '<li class="card"><h3><a href="/s/' + it.i + '/">' + esc(it.t) + "</a></h3>" +
+            '<ul class="meta"><li>対象地域 <b>' + esc(it.a.slice(0, 24)) + "</b></li>" +
+            "<li>上限 <b>" + esc(it.m) + "</b></li>" +
+            '<li class="' + pill + '">締切' + left + "</li></ul>" +
+            '<p class="sum">' + esc(it.s) + "</p></li>"
+          );
+        })
+        .join("");
+    }
+
+    function run() {
+      var q = decodeURIComponent((location.hash.match(/q=([^&]*)/) || [])[1] || "").trim();
+      if (!q) {
+        location.replace("/search/");
+        return;
+      }
+      termEl.textContent = q;
+      countEl.textContent = "…";
+
+      if (cache) return render(q, cache);
+      fetch("/search-index.json")
+        .then(function (r) { return r.json(); })
+        .then(function (items) {
+          cache = items;
+          render(q, items);
+        })
+        .catch(function () {
+          countEl.textContent = "—";
+          listEl.innerHTML = '<li class="empty">検索データを読み込めませんでした。<a href="/deadline/">一覧から探す</a></li>';
+        });
+    }
+
+    // 同じページ内でキーワードだけ変わった場合も検索し直す
+    window.addEventListener("hashchange", run);
+    run();
+  })();
+</script>

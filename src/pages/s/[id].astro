@@ -1,0 +1,89 @@
+---
+import Base from "../../layouts/Base.astro";
+import { subsidies, statusOf, formatDate, formatYen, PREF_SLUG, INDUSTRY_SLUG } from "../../lib/data";
+
+export function getStaticPaths() {
+  return subsidies.map((s) => ({ params: { id: s.id }, props: { s } }));
+}
+
+const { s } = Astro.props;
+const st = statusOf(s);
+const description = `${s.title}の対象地域・上限額・補助率・締切をまとめています。${s.summary}`.slice(0, 118);
+
+// 構造化データ。事実の転記のみで、可否の判断は含めない。
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "GovernmentService",
+  name: s.title,
+  serviceType: "補助金",
+  areaServed: s.areas.map((a) => ({ "@type": "AdministrativeArea", name: a })),
+  provider: s.institution ? { "@type": "GovernmentOrganization", name: s.institution } : undefined,
+  url: s.officialUrl,
+};
+---
+
+<Base title={`${s.title}｜補助金しらべ`} description={description}>
+  <p class="crumbs"><a href="/">トップ</a> ／ <a href="/deadline/">募集中の補助金</a> ／ {s.code}</p>
+
+  <h1>{s.title}</h1>
+  {s.catchPhrase && <p class="lead">{s.catchPhrase}</p>}
+
+  <ul class="meta">
+    <li class={st.kind === "closed" || st.kind === "urgent" ? "pill-urgent" : "pill-deadline"}>
+      <b>{st.label}</b>（受付終了日 {formatDate(s.acceptanceEnd)}）
+    </li>
+  </ul>
+
+  {st.kind === "closed" && (
+    <div class="notice">
+      <strong>この制度はデータ上の受付終了日を過ぎています。</strong>
+      再公募や期間延長が行われている場合もあるため、最新の状況は公式ページでご確認ください。
+    </div>
+  )}
+
+  <h2>制度の概要</h2>
+  <table class="spec">
+    <tbody>
+      <tr><th>制度番号</th><td>{s.code}</td></tr>
+      <tr><th>実施機関</th><td>{s.institution ?? "記載なし"}</td></tr>
+      <tr><th>補助上限額</th><td>{formatYen(s.maxLimit)}</td></tr>
+      <tr><th>補助率</th><td>{s.rate ?? "記載なし"}</td></tr>
+      <tr><th>対象地域</th><td>{s.isNational ? "全国" : s.areas.join("、") || "記載なし"}</td></tr>
+      <tr><th>従業員数の条件</th><td>{s.employees ?? "記載なし"}</td></tr>
+      <tr><th>受付期間</th><td>{formatDate(s.acceptanceStart)} 〜 {formatDate(s.acceptanceEnd)}</td></tr>
+      <tr><th>対象業種</th><td>{s.industries.length ? s.industries.join("、") : "記載なし"}</td></tr>
+      <tr><th>利用目的</th><td>{s.purposes.join("、")}</td></tr>
+      {s.guidelines.length > 0 && (
+        <tr><th>公募要領等</th><td>{s.guidelines.join("、")}（公式サイトで配布）</td></tr>
+      )}
+    </tbody>
+  </table>
+
+  <div class="notice">
+    <strong>この表は公開データの転記です。</strong>
+    金額・期間・対象条件は公募回次や申請内容によって変わることがあり、
+    <strong>本サイトでは受給できるかどうかの判断は行いません。</strong>
+    申請前に必ず公式ページと公募要領の原文をご確認ください。
+  </div>
+
+  <p><a class="cta" href={`/go/${s.id}/`} rel="nofollow">公式ページで詳細と最新情報を見る</a></p>
+
+  {s.bodyHtml && (
+    <>
+      <h2>公募情報（公開データ原文）</h2>
+      <div class="body-html" set:html={s.bodyHtml} />
+    </>
+  )}
+
+  <h2>関連する条件で探す</h2>
+  <ul class="facets">
+    {!s.isNational && s.areas.filter((a) => PREF_SLUG[a]).slice(0, 12).map((a) => (
+      <li><a href={`/area/${PREF_SLUG[a]}/`}>{a}の補助金</a></li>
+    ))}
+    {s.industries.filter((i) => INDUSTRY_SLUG[i]).slice(0, 8).map((i) => (
+      <li><a href={`/industry/${INDUSTRY_SLUG[i]}/`}>{i}向け</a></li>
+    ))}
+  </ul>
+
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+</Base>

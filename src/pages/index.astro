@@ -1,0 +1,60 @@
+---
+import Base from "../layouts/Base.astro";
+import SubsidyCard from "../components/SubsidyCard.astro";
+import { dataset, byArea, byIndustry, openSubsidies, PREF_SLUG, INDUSTRY_SLUG } from "../lib/data";
+
+const open = openSubsidies();
+const closingSoon = open.filter((s) => s.acceptanceEnd).slice(0, 6);
+
+const majorAreas = ["東京都", "大阪府", "愛知県", "神奈川県", "福岡県", "北海道", "埼玉県", "千葉県", "兵庫県", "京都府"];
+const topIndustries = ["製造業", "情報通信業", "建設業", "卸売業、小売業", "宿泊業、飲食サービス業", "医療、福祉", "運輸業、郵便業", "農業、林業"];
+const title = "補助金しらべ｜設備投資・IT導入の補助金を条件で探す";
+const description = `募集中の補助金${dataset.counts.subsidies}件を、地域・業種・締切で横並びに比較できます。登録不要・無料。出典はデジタル庁の公開データです。`;
+---
+
+<Base title={title} description={description}>
+  <h1>設備投資・IT導入に使える補助金を、条件で絞って比べる</h1>
+  <p class="lead">
+    受付中の <b>{open.length}件</b> を、上限額・補助率・締切をそろえた同じ形式で表示しています。
+    会員登録は不要で、個人情報は一切収集しません。
+  </p>
+
+  <p><a class="cta" href="/search/">条件を指定して探す</a></p>
+
+  <h2>締切が近いもの</h2>
+  <ul class="card-list">
+    {closingSoon.map((s) => <SubsidyCard s={s} />)}
+  </ul>
+  <p><a href="/deadline/">締切が近い順にすべて見る →</a></p>
+
+  <h2>地域から探す</h2>
+  <ul class="facets">
+    {majorAreas.map((p) => (
+      <li><a href={`/area/${PREF_SLUG[p]}/`}>{p} <span class="count">{byArea(p).length}件</span></a></li>
+    ))}
+    <li><a href="/area/">47都道府県すべて →</a></li>
+  </ul>
+
+  <h2>業種から探す</h2>
+  <ul class="facets">
+    {topIndustries.filter((i) => INDUSTRY_SLUG[i]).map((i) => (
+      <li><a href={`/industry/${INDUSTRY_SLUG[i]}/`}>{i} <span class="count">{byIndustry(i).length}件</span></a></li>
+    ))}
+    <li><a href="/industry/">業種一覧 →</a></li>
+  </ul>
+
+  <h2>このサイトの使い方</h2>
+  <p>
+    国や自治体の補助金は、公募ごとに書式も表現もばらばらで、そのままでは比較ができません。
+    このサイトは公開データを同じ項目に整形し直すことで、<b>「上限額」「補助率」「締切までの残り日数」「対象地域」「対象業種」を横並びで見比べられる</b>ようにしたものです。
+  </p>
+  <p>
+    絞り込んだ条件はそのままURLになります。気になる条件のページをブックマークしたり、そのまま共有したりできます。
+  </p>
+
+  <div class="notice">
+    <strong>ご注意:</strong>
+    本サイトは制度情報を整理して表示するものであり、補助金を受け取れるかどうかを判定するものではありません。
+    実際の対象条件・申請期限・必要書類は、各ページから公式サイトを開いて必ずご確認ください。
+  </div>
+</Base>

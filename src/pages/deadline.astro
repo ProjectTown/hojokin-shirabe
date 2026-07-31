@@ -1,0 +1,40 @@
+---
+import Base from "../layouts/Base.astro";
+import SubsidyCard from "../components/SubsidyCard.astro";
+import { subsidies, daysLeft, statusOf, dataset } from "../lib/data";
+
+const withDays = subsidies.map((s) => ({ s, d: daysLeft(s.acceptanceEnd), closed: statusOf(s).kind === "closed" }));
+const live = withDays.filter((x) => !x.closed);
+const groups = [
+  { label: "締切まで2週間以内", items: live.filter((x) => x.d !== null && x.d <= 14) },
+  { label: "締切まで1か月以内", items: live.filter((x) => x.d !== null && x.d > 14 && x.d <= 30) },
+  { label: "締切まで3か月以内", items: live.filter((x) => x.d !== null && x.d > 30 && x.d <= 90) },
+  { label: "それ以降・通年", items: live.filter((x) => x.d === null || x.d > 90) },
+  { label: "受付終了（データ上の期限を過ぎたもの）", items: withDays.filter((x) => x.closed) },
+].filter((g) => g.items.length > 0);
+---
+
+<Base
+  title={`締切が近い補助金一覧（募集中${dataset.counts.subsidies}件）｜補助金しらべ`}
+  description={`設備投資・IT導入で現在募集中の補助金${dataset.counts.subsidies}件を、締切までの残り日数が短い順に並べています。登録不要・無料。`}
+>
+  <p class="crumbs"><a href="/">トップ</a> ／ 締切が近い順</p>
+  <h1>締切が近い順に見る</h1>
+  <p class="lead">
+    募集中 <b>{dataset.counts.subsidies}件</b> を、締切までの残り日数で区切って並べています。
+    公募は予告なく変更されることがあります。
+  </p>
+
+  {groups.map((g) => (
+    <>
+      <h2>{g.label}（{g.items.length}件）</h2>
+      <ul class="card-list">{g.items.map((x) => <SubsidyCard s={x.s} />)}</ul>
+    </>
+  ))}
+
+  <div class="notice">
+    残り日数はデータ取得時点の受付終了日から計算した目安です。
+    <strong>締切の延長・前倒し・予算上限による早期終了があり得ます。</strong>
+    申請前に必ず公式ページでご確認ください。
+  </div>
+</Base>

@@ -1,0 +1,27 @@
+---
+import Base from "../../layouts/Base.astro";
+import { byIndustry, INDUSTRY_SLUG } from "../../lib/data";
+
+const rows = Object.keys(INDUSTRY_SLUG)
+  .map((industry) => ({ industry, slug: INDUSTRY_SLUG[industry], n: byIndustry(industry).length }))
+  .sort((a, b) => b.n - a.n);
+---
+
+<Base
+  title="業種から補助金を探す｜補助金しらべ"
+  description="製造業・情報通信業・建設業など、業種別に対象となる設備投資・IT導入の補助金を探せます。登録不要・無料。"
+>
+  <p class="crumbs"><a href="/">トップ</a> ／ 業種から探す</p>
+  <h1>業種から探す</h1>
+  <p class="lead">日本標準産業分類の大分類にそって整理しています。件数が多い順です。</p>
+
+  <ul class="facets">
+    {rows.map((r) => (
+      <li><a href={`/industry/${r.slug}/`}>{r.industry} <span class="count">{r.n}件</span></a></li>
+    ))}
+  </ul>
+
+  <div class="notice">
+    多くの制度は複数業種を対象にしているため、件数の合計は掲載総数と一致しません。
+  </div>
+</Base>

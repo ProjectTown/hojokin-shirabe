@@ -1,0 +1,100 @@
+---
+import Base from "../../layouts/Base.astro";
+import { dataset, byArea, byIndustry, PREF_SLUG, INDUSTRY_SLUG } from "../../lib/data";
+
+const prefs = Object.keys(PREF_SLUG).map((p) => ({ name: p, slug: PREF_SLUG[p], n: byArea(p).length }));
+const inds = Object.keys(INDUSTRY_SLUG).map((i) => ({ name: i, slug: INDUSTRY_SLUG[i], n: byIndustry(i).length }));
+---
+
+<Base
+  title="条件を指定して補助金を探す｜補助金しらべ"
+  description="地域と業種を選ぶだけで、対象になりうる募集中の補助金を絞り込めます。登録不要・個人情報の入力は不要です。"
+>
+  <p class="crumbs"><a href="/">トップ</a> ／ 条件で探す</p>
+  <h1>条件を指定して探す</h1>
+  <p class="lead">
+    地域と業種を選ぶと、条件ごとのページに移動します。
+    <b>そのページのURLがそのまま条件になる</b>ので、ブックマークや共有ができます。
+  </p>
+
+  {/*
+    フォームはJavaScriptが動く場合のみ表示する。
+    動かない環境では下の「一覧から選ぶ」のリンクだけが見え、行き止まりが発生しない。
+  */}
+  <h2 id="kw-h" hidden>キーワードで探す</h2>
+  <form id="kw" class="filters" hidden>
+    <div style="grid-column: span 2">
+      <label for="q">制度名・分野などのことば</label>
+      <input id="q" type="search" placeholder="例: 省エネ　設備　東京" autocomplete="off" />
+    </div>
+    <div style="display:flex; align-items:flex-end">
+      <button class="cta" type="submit" style="border:0; cursor:pointer; width:100%">検索する</button>
+    </div>
+  </form>
+
+  <h2 id="finder-h" hidden>地域と業種で探す</h2>
+  <form id="finder" class="filters" hidden>
+    <div>
+      <label for="area">地域</label>
+      <select id="area" name="area">
+        {prefs.map((p) => <option value={p.slug}>{p.name}（{p.n}件）</option>)}
+      </select>
+    </div>
+    <div>
+      <label for="industry">業種</label>
+      <select id="industry" name="industry">
+        {inds.map((i) => <option value={i.slug}>{i.name}（{i.n}件）</option>)}
+      </select>
+    </div>
+    <div style="display:flex; align-items:flex-end">
+      <button class="cta" type="submit" style="border:0; cursor:pointer; width:100%">この条件で探す</button>
+    </div>
+  </form>
+
+  <div class="notice">
+    入力したことばはブラウザの中だけで照合され、<strong>サーバーへ送信されません</strong>。氏名・メールアドレス・会社情報の入力欄はありません。
+    <strong>絞り込みの結果は「候補の一覧」であり、受給できることを意味しません。</strong>
+  </div>
+
+  <h2>一覧から選ぶ</h2>
+  <p class="lead">クリックするだけで、その条件のページに移動します。</p>
+
+  <h3>地域</h3>
+  <ul class="facets">
+    {prefs.map((p) => <li><a href={`/area/${p.slug}/`}>{p.name} <span class="count">{p.n}件</span></a></li>)}
+  </ul>
+
+  <h3>業種</h3>
+  <ul class="facets">
+    {inds.map((i) => <li><a href={`/industry/${i.slug}/`}>{i.name} <span class="count">{i.n}件</span></a></li>)}
+  </ul>
+
+  <h2>掲載している範囲</h2>
+  <p>
+    現在は<b>「{dataset.category}」</b>のカテゴリで募集中の <b>{dataset.counts.subsidies}件</b> を掲載しています。
+    出典はデジタル庁が公開している補助金データです。
+  </p>
+</Base>
+
+<script is:inline>
+  // JSが動く環境でだけフォームを出す。動かない環境はリンク一覧が受け皿になる。
+  ["kw-h", "kw", "finder-h", "finder"].forEach(function (id) {
+    document.getElementById(id).hidden = false;
+  });
+
+  // 選択内容を静的な条件ページのURLに変換して移動するだけ。送信も保存もしない。
+  document.getElementById("finder").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var area = document.getElementById("area").value;
+    var industry = document.getElementById("industry").value;
+    window.location.href = "/find/" + area + "/" + industry + "/";
+  });
+
+  // キーワードはURLのハッシュに載せる。ハッシュはHTTPリクエストに含まれないため送信されない。
+  document.getElementById("kw").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var q = document.getElementById("q").value.trim();
+    if (!q) return;
+    window.location.href = "/search/result/#q=" + encodeURIComponent(q);
+  });
+</script>

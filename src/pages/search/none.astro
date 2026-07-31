@@ -1,0 +1,48 @@
+---
+import Base from "../../layouts/Base.astro";
+import { dataset, PREF_SLUG, INDUSTRY_SLUG, byArea, byIndustry } from "../../lib/data";
+
+const topAreas = ["東京都", "大阪府", "愛知県", "北海道", "福岡県"];
+const topInds = ["製造業", "情報通信業", "建設業", "宿泊業、飲食サービス業"];
+---
+
+<Base
+  title="該当する補助金が見つかりませんでした｜補助金しらべ"
+  description="入力された条件に一致する募集中の補助金は見つかりませんでした。範囲を広げて探せます。"
+  noindex={true}
+  canonicalPath="/search/"
+>
+  <p class="crumbs"><a href="/">トップ</a> ／ <a href="/search/">条件で探す</a> ／ 該当なし</p>
+  <h1>該当する補助金は見つかりませんでした</h1>
+
+  <div class="empty">
+    <p><b id="term">入力された条件</b> に一致する募集中の制度はありませんでした。</p>
+    <p>
+      このサイトが現在扱っているのは<b>「{dataset.category}」</b>の分野で募集中の {dataset.counts.subsidies}件のみです。
+      それ以外の分野（雇用、創業、研究開発など）はまだ掲載していません。
+    </p>
+  </div>
+
+  <h2>近いところから探す</h2>
+  <ul class="facets">
+    {topAreas.map((p) => <li><a href={`/area/${PREF_SLUG[p]}/`}>{p} <span class="count">{byArea(p).length}件</span></a></li>)}
+    {topInds.map((i) => <li><a href={`/industry/${INDUSTRY_SLUG[i]}/`}>{i} <span class="count">{byIndustry(i).length}件</span></a></li>)}
+    <li><a href="/deadline/">締切が近い順に全件</a></li>
+  </ul>
+
+  <div class="notice">
+    掲載していない制度でも、実際には募集中の場合があります。
+    <a href="https://www.jgrants-portal.go.jp/" rel="noopener nofollow">Jグランツ公式サイト</a> もあわせてご確認ください。
+  </div>
+</Base>
+
+<script is:inline>
+  (function () {
+    function show() {
+      var q = decodeURIComponent((location.hash.match(/q=([^&]*)/) || [])[1] || "").trim();
+      document.getElementById("term").textContent = q ? "「" + q + "」" : "入力された条件";
+    }
+    window.addEventListener("hashchange", show);
+    show();
+  })();
+</script>

@@ -1,0 +1,60 @@
+---
+import Base from "../../layouts/Base.astro";
+import SubsidyCard from "../../components/SubsidyCard.astro";
+import { subsidies, byArea, PREF_SLUG, INDUSTRY_SLUG, dataset } from "../../lib/data";
+
+export function getStaticPaths() {
+  return Object.entries(PREF_SLUG).map(([pref, slug]) => ({ params: { pref: slug }, props: { pref } }));
+}
+
+const { pref } = Astro.props;
+const results = byArea(pref);
+const local = results.filter((s) => !s.isNational);
+const national = results.filter((s) => s.isNational);
+
+// この地域で実際に対象になっている業種だけ出す
+const industries = dataset.facets.industries.filter((i) => results.some((s) => s.industries.includes(i)));
+
+const title = `${pref}で使える補助金${results.length}件｜設備投資・IT導入｜補助金しらべ`;
+const description = `${pref}の事業者が対象になる募集中の補助金を${results.length}件（${pref}独自${local.length}件・全国対象${national.length}件）掲載。締切順に比較できます。`;
+---
+
+<Base title={title} description={description}>
+  <p class="crumbs"><a href="/">トップ</a> ／ <a href="/area/">地域から探す</a> ／ {pref}</p>
+
+  <h1>{pref}の事業者が使える補助金</h1>
+  <p class="lead">
+    設備整備・IT導入の分野で現在募集中のもの <b>{results.length}件</b>
+    （{pref}を対象地域に含む制度 {local.length}件 ／ 全国対象 {national.length}件）。締切が近い順です。
+  </p>
+
+  <h2>業種で絞り込む</h2>
+  <ul class="facets">
+    {industries.map((i) => (
+      <li>
+        <a href={`/find/${PREF_SLUG[pref]}/${INDUSTRY_SLUG[i]}/`}>
+          {i} <span class="count">{results.filter((s) => s.industries.includes(i)).length}件</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  {local.length > 0 && (
+    <>
+      <h2>{pref}を対象地域に含む制度（{local.length}件）</h2>
+      <ul class="card-list">{local.map((s) => <SubsidyCard s={s} />)}</ul>
+    </>
+  )}
+
+  {national.length > 0 && (
+    <>
+      <h2>全国対象の制度（{national.length}件）</h2>
+      <ul class="card-list">{national.map((s) => <SubsidyCard s={s} />)}</ul>
+    </>
+  )}
+
+  <div class="notice">
+    掲載情報はデジタル庁の公開データを整理したものです。
+    <strong>受給可否の判定は行っていません。</strong>市区町村独自の制度など、公開APIに登録されていない補助金は掲載されない場合があります。
+  </div>
+</Base>

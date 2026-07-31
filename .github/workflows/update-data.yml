@@ -1,0 +1,81 @@
+name: 補助金データの日次更新と公開
+
+# 動作:
+#   毎日1回、対象カテゴリ分だけAPIから取り直し、ビルドしてCloudflare Pagesへ公開する。
+#   取得に失敗しても直前の正常データで公開を続ける（サイトが空にならない）。
+#
+# 無料枠のみ:
+#   - GitHub Actions: 1日1回・数分。publicリポジトリは無料、privateでも月2,000分の無料枠内
+#   - Cloudflare Pages: Direct Upload は月500デプロイまで無料。1日1回なら月30回
+#   - Jグランツ公開API: 無料・認証不要・APIキー不要
+#   有料プランへの変更やカード登録は一切不要。
+#
+# 停止方法:
+#   GitHub の Actions 画面でこのワークフローを Disable する。
+#   停止しても公開中のサイトはそのまま残る。詳細は README.md を参照。
+
+on:
+  schedule:
+    - cron: "0 21 * * *" # 毎日 06:00 JST
+  workflow_dispatch: # 手動実行用
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-data
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # 1カテゴリ分のみ取得。スクリプト側で
+      # 1検索100件 / 1実行110リクエスト の上限が強制される。
+      # 失敗しても続行し、既存データを維持したまま公開を保つ。
+      - name: 補助金データを取得
+        id: fetch
+        continue-on-error: true
+        run: npm run fetch
+
+      # 取得に失敗した場合、normalize が直前の subsidies.json を維持する。
+      - name: 整形（失敗時は既存データを維持）
+        run: npm run normalize
+
+      - name: ビルド
+        run: npm run build
+        env:
+          SITE_URL: https://hojokin-shirabe.pages.dev
+
+      - name: Cloudflare Pages へ公開
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name hojokin-shirabe --branch main --commit-dirty=true
+
+      - name: データの変更を記録
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/
+          if git diff --staged --quiet; then
+            echo "データに変更なし。"
+          else
+            git commit -m "データ更新 $(date -u +%Y-%m-%d) (取得: ${{ steps.fetch.outcome }})"
+            git push
+          fi
+
+      - name: 取得失敗時の警告
+        if: steps.fetch.outcome == 'failure'
+        run: echo "::warning::APIからの取得に失敗しました。最後に正常取得したデータで公開を継続しています。"

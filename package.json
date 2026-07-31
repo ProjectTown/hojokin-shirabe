@@ -1,0 +1,19 @@
+{
+  "name": "hojokin-finder",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "補助金・助成金の横断検索データベース（デジタル庁 Jグランツ公開APIを利用）",
+  "scripts": {
+    "fetch": "node scripts/fetch-category.mjs",
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "normalize": "node scripts/normalize.mjs",
+    "data": "npm run fetch && npm run normalize"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.0",
+    "astro": "^5.16.0"
+  }
+}

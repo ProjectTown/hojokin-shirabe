@@ -1,0 +1,22 @@
+---
+import { formatDate, formatYen, statusOf, type Subsidy } from "../lib/data";
+
+interface Props { s: Subsidy; }
+const { s } = Astro.props;
+const st = statusOf(s);
+---
+
+<li class={`card ${st.kind === "closed" ? "is-closed" : ""}`}>
+  <h3>
+    <span class={`status ${st.className}`}>{st.label}</span>
+    <a href={`/s/${s.id}/`}>{s.title}</a>
+  </h3>
+  <ul class="meta">
+    <li>対象地域 <b>{s.areaLabel.length > 24 ? `${s.areaLabel.slice(0, 24)}ほか` : s.areaLabel}</b></li>
+    <li>上限 <b>{formatYen(s.maxLimit)}</b></li>
+    {s.rate && <li>補助率 <b>{s.rate}</b></li>}
+    {s.employees && <li><b>{s.employees}</b></li>}
+    <li>締切 <b>{formatDate(s.acceptanceEnd)}</b></li>
+  </ul>
+  <p class="sum">{s.summary}</p>
+</li>

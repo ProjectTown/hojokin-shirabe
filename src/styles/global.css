@@ -1,0 +1,183 @@
+:root {
+  --bg: #ffffff;
+  --surface: #f6f7f9;
+  --border: #dfe3e8;
+  --text: #1b2430;
+  --muted: #5b6673;
+  --accent: #12603f;
+  --accent-soft: #e6f2ec;
+  --warn: #a8420a;
+  --warn-soft: #fdefe6;
+  --radius: 10px;
+  --maxw: 960px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14181d;
+    --surface: #1c2229;
+    --border: #2e3843;
+    --text: #e8ecf1;
+    --muted: #9aa6b4;
+    --accent: #63c69b;
+    --accent-soft: #16302640;
+    --warn: #f0a877;
+    --warn-soft: #33221740;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", "Meiryo", sans-serif;
+  line-height: 1.75;
+  font-size: 16px;
+}
+
+a { color: var(--accent); }
+a:hover { text-decoration: none; }
+
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 16px; }
+
+header.site {
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+header.site .wrap { display: flex; flex-wrap: wrap; gap: 12px; align-items: baseline; padding-block: 14px; }
+header.site .brand { font-weight: 700; font-size: 1.15rem; text-decoration: none; color: var(--text); }
+header.site nav { display: flex; gap: 16px; flex-wrap: wrap; font-size: .9rem; margin-left: auto; }
+
+main { padding-block: 28px 48px; }
+
+h1 { font-size: 1.6rem; line-height: 1.4; margin: 0 0 8px; }
+h2 { font-size: 1.2rem; margin: 32px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+h3 { font-size: 1.05rem; margin: 24px 0 8px; }
+.lead { color: var(--muted); margin: 0 0 24px; }
+
+.card-list { display: grid; gap: 14px; padding: 0; margin: 0; list-style: none; }
+
+.card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  background: var(--bg);
+}
+.card h3 { margin: 0 0 8px; font-size: 1.02rem; line-height: 1.5; }
+.card h3 a { text-decoration: none; }
+.card h3 a:hover { text-decoration: underline; }
+.card p.sum { color: var(--muted); font-size: .88rem; margin: 8px 0 0; }
+
+.meta { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; font-size: .8rem; }
+.meta li {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 2px 10px;
+  color: var(--muted);
+}
+.meta li b { color: var(--text); font-weight: 600; }
+
+.pill-deadline { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+.pill-urgent { background: var(--warn-soft); border-color: var(--warn); color: var(--warn); }
+
+/* 制度の状態バッジ。終了済みを見分けやすくするためのもの。 */
+.status {
+  display: inline-block;
+  font-size: .72rem;
+  font-weight: 700;
+  line-height: 1.6;
+  padding: 1px 9px;
+  border-radius: 4px;
+  margin-right: 8px;
+  vertical-align: 2px;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+.st-open { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+.st-urgent { background: var(--warn-soft); color: var(--warn); border-color: var(--warn); }
+.st-closed { background: var(--surface); color: var(--muted); border-color: var(--border); }
+.st-unknown { background: var(--surface); color: var(--muted); border-color: var(--border); }
+
+.card.is-closed { opacity: .68; }
+.card.is-closed h3 a { color: var(--muted); }
+
+.stale-banner {
+  background: var(--warn-soft);
+  border-bottom: 1px solid var(--warn);
+  color: var(--warn);
+  font-size: .84rem;
+}
+.stale-banner .wrap { padding-block: 9px; }
+
+.facets { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 0 0 24px; list-style: none; }
+.facets a {
+  display: inline-block;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: .86rem;
+  text-decoration: none;
+  background: var(--surface);
+}
+.facets a:hover { border-color: var(--accent); }
+.facets .count { color: var(--muted); font-size: .8em; }
+
+.spec { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: .92rem; }
+.spec th, .spec td { border: 1px solid var(--border); padding: 9px 12px; text-align: left; vertical-align: top; }
+.spec th { background: var(--surface); width: 30%; white-space: nowrap; font-weight: 600; }
+
+.body-html { overflow-wrap: anywhere; }
+.body-html table { display: block; overflow-x: auto; border-collapse: collapse; }
+.body-html td, .body-html th { border: 1px solid var(--border); padding: 6px 10px; }
+
+.cta {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  padding: 12px 22px;
+  border-radius: var(--radius);
+  text-decoration: none;
+  font-weight: 700;
+}
+@media (prefers-color-scheme: dark) { .cta { color: #10241c; } }
+
+.notice {
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--warn);
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  font-size: .86rem;
+  color: var(--muted);
+  margin: 24px 0;
+}
+.notice strong { color: var(--text); }
+
+.filters { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: 20px; }
+.filters label { display: block; font-size: .82rem; color: var(--muted); margin-bottom: 4px; }
+.filters select, .filters input {
+  width: 100%; padding: 9px 10px; font: inherit; font-size: .92rem;
+  border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text);
+}
+
+.result-head { display: flex; flex-wrap: wrap; gap: 10px; align-items: baseline; margin: 8px 0 16px; }
+.result-head .n { font-size: 1.25rem; font-weight: 700; }
+
+.empty { border: 1px dashed var(--border); border-radius: var(--radius); padding: 28px 16px; text-align: center; color: var(--muted); }
+
+footer.site {
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  font-size: .82rem;
+  color: var(--muted);
+  padding-block: 24px 40px;
+}
+footer.site h2 { font-size: .9rem; border: 0; margin: 0 0 6px; color: var(--text); }
+footer.site ul { padding-left: 1.2em; margin: 0 0 14px; }
+footer.site nav { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 14px; }
+
+.crumbs { font-size: .82rem; color: var(--muted); margin: 0 0 14px; }
+.crumbs a { color: var(--muted); }

@@ -1,0 +1,26 @@
+---
+import Base from "../../layouts/Base.astro";
+import { byArea, PREF_SLUG } from "../../lib/data";
+
+const rows = Object.keys(PREF_SLUG).map((pref) => ({ pref, slug: PREF_SLUG[pref], n: byArea(pref).length }));
+---
+
+<Base
+  title="都道府県から補助金を探す（全国47都道府県）｜補助金しらべ"
+  description="47都道府県それぞれで使える設備投資・IT導入の補助金を一覧できます。登録不要・無料。"
+>
+  <p class="crumbs"><a href="/">トップ</a> ／ 地域から探す</p>
+  <h1>都道府県から探す</h1>
+  <p class="lead">各都道府県の事業者が対象になる制度の件数です。全国対象の制度も含みます。</p>
+
+  <ul class="facets">
+    {rows.map((r) => (
+      <li><a href={`/area/${r.slug}/`}>{r.pref} <span class="count">{r.n}件</span></a></li>
+    ))}
+  </ul>
+
+  <div class="notice">
+    件数はデジタル庁の公開データに登録されている、設備整備・IT導入分野で募集中の制度に限られます。
+    市区町村が独自に実施する制度は含まれない場合があります。
+  </div>
+</Base>

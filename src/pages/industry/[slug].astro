@@ -1,0 +1,46 @@
+---
+import Base from "../../layouts/Base.astro";
+import SubsidyCard from "../../components/SubsidyCard.astro";
+import { byIndustry, INDUSTRY_SLUG, PREF_SLUG, dataset } from "../../lib/data";
+
+export function getStaticPaths() {
+  return Object.entries(INDUSTRY_SLUG).map(([industry, slug]) => ({ params: { slug }, props: { industry } }));
+}
+
+const { industry } = Astro.props;
+const results = byIndustry(industry);
+const areas = dataset.facets.areas.filter((a) => results.some((s) => !s.isNational && s.areas.includes(a)));
+
+const title = `${industry}が対象の補助金${results.length}件｜設備投資・IT導入｜補助金しらべ`;
+const description = `${industry}の事業者が対象になる募集中の補助金を${results.length}件掲載。上限額・補助率・締切を同じ形式で比較できます。`;
+---
+
+<Base title={title} description={description}>
+  <p class="crumbs"><a href="/">トップ</a> ／ <a href="/industry/">業種から探す</a> ／ {industry}</p>
+
+  <h1>{industry}が対象になる補助金</h1>
+  <p class="lead">設備整備・IT導入の分野で現在募集中のもの <b>{results.length}件</b>。締切が近い順です。</p>
+
+  {areas.length > 0 && (
+    <>
+      <h2>地域で絞り込む</h2>
+      <ul class="facets">
+        {areas.map((a) => (
+          <li>
+            <a href={`/find/${PREF_SLUG[a]}/${INDUSTRY_SLUG[industry]}/`}>
+              {a} <span class="count">{results.filter((s) => s.areas.includes(a)).length}件</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </>
+  )}
+
+  <ul class="card-list">{results.map((s) => <SubsidyCard s={s} />)}</ul>
+
+  <div class="notice">
+    対象業種は公開データの記載に基づく分類です。
+    <strong>実際に申請できるかどうかは制度ごとの要件によります。本サイトでは判定しません。</strong>
+    必ず公式ページでご確認ください。
+  </div>
+</Base>
