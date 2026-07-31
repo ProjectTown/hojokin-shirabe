@@ -1,7 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import SubsidyCard from "../../components/SubsidyCard.astro";
-import { byIndustry, INDUSTRY_SLUG, PREF_SLUG, dataset } from "../../lib/data";
+import { byIndustry, INDUSTRY_SLUG, PREF_SLUG, dataset, isIndexableIndustry } from "../../lib/data";
 
 export function getStaticPaths() {
   return Object.entries(INDUSTRY_SLUG).map(([industry, slug]) => ({ params: { slug }, props: { industry } }));
@@ -15,7 +15,7 @@ const title = `${industry}が対象の補助金${results.length}件｜設備投�
 const description = `${industry}の事業者が対象になる募集中の補助金を${results.length}件掲載。上限額・補助率・締切を同じ形式で比較できます。`;
 ---
 
-<Base title={title} description={description}>
+<Base title={title} description={description} noindex={!isIndexableIndustry(industry)}>
   <p class="crumbs"><a href="/">トップ</a> ／ <a href="/industry/">業種から探す</a> ／ {industry}</p>
 
   <h1>{industry}が対象になる補助金</h1>

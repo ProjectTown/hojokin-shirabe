@@ -1,4 +1,5 @@
 import raw from "../../data/subsidies.json";
+import seoRaw from "../../data/seo.json";
 
 export type Subsidy = {
   id: string;
@@ -38,45 +39,8 @@ export type Dataset = {
 export const dataset = raw as unknown as Dataset;
 export const subsidies = dataset.records;
 
-/** 都道府県 → URL用スラッグ。日本語URLを避けて経路を安定させる。 */
-export const PREF_SLUG: Record<string, string> = {
-  北海道: "hokkaido", 青森県: "aomori", 岩手県: "iwate", 宮城県: "miyagi",
-  秋田県: "akita", 山形県: "yamagata", 福島県: "fukushima", 茨城県: "ibaraki",
-  栃木県: "tochigi", 群馬県: "gunma", 埼玉県: "saitama", 千葉県: "chiba",
-  東京都: "tokyo", 神奈川県: "kanagawa", 新潟県: "niigata", 富山県: "toyama",
-  石川県: "ishikawa", 福井県: "fukui", 山梨県: "yamanashi", 長野県: "nagano",
-  岐阜県: "gifu", 静岡県: "shizuoka", 愛知県: "aichi", 三重県: "mie",
-  滋賀県: "shiga", 京都府: "kyoto", 大阪府: "osaka", 兵庫県: "hyogo",
-  奈良県: "nara", 和歌山県: "wakayama", 鳥取県: "tottori", 島根県: "shimane",
-  岡山県: "okayama", 広島県: "hiroshima", 山口県: "yamaguchi", 徳島県: "tokushima",
-  香川県: "kagawa", 愛媛県: "ehime", 高知県: "kochi", 福岡県: "fukuoka",
-  佐賀県: "saga", 長崎県: "nagasaki", 熊本県: "kumamoto", 大分県: "oita",
-  宮崎県: "miyazaki", 鹿児島県: "kagoshima", 沖縄県: "okinawa",
-};
-
-/** 日本標準産業分類の大分類 → URL用スラッグ。 */
-export const INDUSTRY_SLUG: Record<string, string> = {
-  "農業、林業": "agriculture",
-  漁業: "fishery",
-  "鉱業、採石業、砂利採取業": "mining",
-  建設業: "construction",
-  製造業: "manufacturing",
-  "電気・ガス・熱供給・水道業": "utilities",
-  情報通信業: "ict",
-  "運輸業、郵便業": "transport",
-  "卸売業、小売業": "retail",
-  "金融業、保険業": "finance",
-  "不動産業、物品賃貸業": "realestate",
-  "学術研究、専門・技術サービス業": "research",
-  "宿泊業、飲食サービス業": "hospitality",
-  "生活関連サービス業、娯楽業": "lifestyle",
-  "教育、学習支援業": "education",
-  "医療、福祉": "healthcare",
-  複合サービス事業: "compound",
-  "サービス業（他に分類されないもの）": "services",
-  "公務（他に分類されるものを除く）": "public",
-  分類不能の産業: "other",
-};
+export { PREF_SLUG, INDUSTRY_SLUG } from "./slugs.mjs";
+import { PREF_SLUG, INDUSTRY_SLUG } from "./slugs.mjs";
 
 export const slugToPref = Object.fromEntries(Object.entries(PREF_SLUG).map(([k, v]) => [v, k]));
 export const slugToIndustry = Object.fromEntries(Object.entries(INDUSTRY_SLUG).map(([k, v]) => [v, k]));
@@ -140,3 +104,26 @@ export function formatYen(v: number | null): string {
 
 export const byArea = (pref: string) => subsidies.filter((s) => s.areas.includes(pref));
 export const byIndustry = (name: string) => subsidies.filter((s) => s.industries.includes(name));
+
+/**
+ * 検索エンジンに載せるページの判定。
+ * 掲載データの半分以上が全国対象のため、絞り込みページの多くが
+ * 互いにほぼ同一の内容になる。重複と判断されてサイト全体の評価が
+ * 落ちるのを避けるため、固有情報があるページだけを掲載対象にする。
+ * 対象外のページも利用者には通常どおり表示し、noindex, follow を付けるだけ。
+ * 判定の実体は normalize 時に data/seo.json へ書き出している。
+ */
+type SeoPolicy = {
+  rule: Record<string, string>;
+  counts: Record<string, string>;
+  indexableAreas: string[];
+  indexableIndustries: string[];
+  indexableFinds: string[];
+};
+
+export const seo = seoRaw as SeoPolicy;
+
+export const isIndexableArea = (pref: string) => seo.indexableAreas.includes(pref);
+export const isIndexableIndustry = (name: string) => seo.indexableIndustries.includes(name);
+export const isIndexableFind = (pref: string, industry: string) =>
+  seo.indexableFinds.includes(`${pref}\t${industry}`);

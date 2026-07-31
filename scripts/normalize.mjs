@@ -133,6 +133,62 @@ async function keepPrevious(reason) {
   console.warn(`  最終取得: ${prev.lastSuccessfulFetch ?? prev.sourceUpdatedAt} / ${prev.records.length}件`);
 }
 
+/**
+ * どのページを検索エンジンに載せるかを決める。
+ *
+ * 掲載データの半分以上が「全国対象」なので、地域や業種で絞っても
+ * 中身がほとんど同じページが大量にできる。それを全部インデックスさせると
+ * 重複・低品質と判断されてサイト全体の評価を落とす。
+ * そのため「そのページにしかない情報があるか」を基準に選別する。
+ * 落選したページも利用者には従来どおり表示し、noindex, follow を付けるだけ。
+ */
+function buildSeoPolicy(records, areas, industries) {
+  const local = records.filter((r) => !r.isNational);
+
+  // 都道府県: その県を対象にした地域限定の制度が2件以上あるか。
+  // 1件だと残りが全国分で埋まり、県どうしのページが96%一致してしまう（実測）。
+  const MIN_LOCAL_AREA = 2;
+  const indexableAreas = areas.filter(
+    (p) => local.filter((r) => r.areas.includes(p)).length >= MIN_LOCAL_AREA,
+  );
+
+  // 業種: 対象業種を絞り込んでいる制度が2件以上あるか。
+  // 全20業種を一律に対象とする制度ばかりだと、業種ページ同士が同一内容になる。
+  const SPECIFIC_MAX = 10;
+  const indexableIndustries = industries.filter(
+    (i) =>
+      i !== "分類不能の産業" &&
+      records.filter((r) => r.industries.includes(i) && r.industries.length <= SPECIFIC_MAX).length >= 2,
+  );
+
+  // 地域×業種の940ページは、検索エンジンには一切載せない。
+  //
+  // 多くの制度が複数業種をまとめて対象にするため、同じ県の中で業種を変えても
+  // 結果がそっくり同じになる。地域限定の制度が1件以上ある238ページに絞っても、
+  // なお176組が95%超で一致し、完全一致する組み合わせもあった（実測）。
+  // これは誘導ページとみなされ、サイト全体の評価を落とす典型例。
+  //
+  // 利用者には従来どおり表示し、絞り込みの受け皿と利用状況の計測にだけ使う。
+  const indexableFinds = [];
+
+  return {
+    generatedAt: new Date().toISOString(),
+    rule: {
+      area: "その県限定の制度が1件以上",
+      industry: `対象業種を${SPECIFIC_MAX}業種以下に絞った制度が2件以上`,
+      find: "その地域×業種に地域限定の制度が1件以上",
+    },
+    counts: {
+      areas: `${indexableAreas.length}/${areas.length}`,
+      industries: `${indexableIndustries.length}/${industries.length}`,
+      finds: `${indexableFinds.length}/${areas.length * industries.length}`,
+    },
+    indexableAreas,
+    indexableIndustries,
+    indexableFinds,
+  };
+}
+
 async function main() {
   let manifest;
   try {
@@ -190,6 +246,7 @@ async function main() {
   }
 
   await writeFile(OUT_FILE, JSON.stringify(out));
+  await writeFile(path.join(DATA_DIR, "seo.json"), JSON.stringify(buildSeoPolicy(records, areasUsed, industries), null, 2));
   console.log(`整形完了: ${records.length} 件 / 地域 ${areasUsed.length} / 業種 ${industries.length}`);
   console.log("連絡先チェック: メール0件 / 電話0件");
   console.log(`カテゴリ: ${manifest.category}`);

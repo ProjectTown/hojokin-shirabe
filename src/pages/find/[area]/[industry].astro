@@ -9,7 +9,7 @@
  */
 import Base from "../../../layouts/Base.astro";
 import SubsidyCard from "../../../components/SubsidyCard.astro";
-import { subsidies, PREF_SLUG, INDUSTRY_SLUG, slugToPref, slugToIndustry } from "../../../lib/data";
+import { subsidies, PREF_SLUG, INDUSTRY_SLUG, isIndexableFind } from "../../../lib/data";
 
 export function getStaticPaths() {
   const paths = [];
@@ -35,7 +35,7 @@ const sameArea = subsidies.filter((s) => s.areas.includes(pref)).length;
 const sameIndustry = subsidies.filter((s) => s.industries.includes(industry)).length;
 ---
 
-<Base title={title} description={description} noindex={results.length < 2}>
+<Base title={title} description={description} noindex={!isIndexableFind(pref, industry)}>
   <p class="crumbs">
     <a href="/">トップ</a> ／ <a href="/search/">条件で探す</a> ／ {pref} × {industry}
   </p>

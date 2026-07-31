@@ -8,7 +8,19 @@ export function getStaticPaths() {
 
 const { s } = Astro.props;
 const st = statusOf(s);
-const description = `${s.title}の対象地域・上限額・補助率・締切をまとめています。${s.summary}`.slice(0, 118);
+
+// 同名の制度が複数ある（同じ補助金の枠違い・回次違い）。
+// 検索結果で見分けられるよう、重複する場合だけ制度番号を添える。
+const sameName = subsidies.filter((x) => x.title === s.title).length > 1;
+const label = sameName ? `${s.title}（${s.code}）` : s.title;
+
+// 検索結果でのタイトル表示は40字前後で切られる。
+// 制度名自体が長い場合はサイト名を省き、制度名を優先して見せる。
+const title = label.length > 28 ? label : `${label}｜補助金しらべ`;
+
+const description = sameName
+  ? `${s.title}（${s.code}・上限${formatYen(s.maxLimit)}）の対象地域・補助率・締切をまとめています。${s.summary}`.slice(0, 118)
+  : `${s.title}の対象地域・上限額・補助率・締切をまとめています。${s.summary}`.slice(0, 118);
 
 // 構造化データ。事実の転記のみで、可否の判断は含めない。
 const jsonLd = {
@@ -22,7 +34,7 @@ const jsonLd = {
 };
 ---
 
-<Base title={`${s.title}｜補助金しらべ`} description={description}>
+<Base title={title} description={description}>
   <p class="crumbs"><a href="/">トップ</a> ／ <a href="/deadline/">募集中の補助金</a> ／ {s.code}</p>
 
   <h1>{s.title}</h1>
