@@ -1,8 +1,17 @@
 ---
 import Base from "../../layouts/Base.astro";
-import { byArea, PREF_SLUG } from "../../lib/data";
+import { byArea, subsidies, PREF_SLUG, isIndexableArea } from "../../lib/data";
 
-const rows = Object.keys(PREF_SLUG).map((pref) => ({ pref, slug: PREF_SLUG[pref], n: byArea(pref).length }));
+const localOnly = subsidies.filter((s) => !s.isNational);
+const rows = Object.keys(PREF_SLUG).map((pref) => ({
+  pref,
+  slug: PREF_SLUG[pref],
+  n: byArea(pref).length,
+  local: localOnly.filter((s) => s.areas.includes(pref)).length,
+}));
+// 県独自の制度があるかどうかで分ける。後者はどの県を選んでも同じ内容になる。
+const withLocal = rows.filter((r) => isIndexableArea(r.pref));
+const rest = rows.filter((r) => !isIndexableArea(r.pref));
 ---
 
 <Base
@@ -13,8 +22,23 @@ const rows = Object.keys(PREF_SLUG).map((pref) => ({ pref, slug: PREF_SLUG[pref]
   <h1>都道府県から探す</h1>
   <p class="lead">各都道府県の事業者が対象になる制度の件数です。全国対象の制度も含みます。</p>
 
+  <h2>県独自の制度がある地域（{withLocal.length}県）</h2>
+  <p class="lead">その地域だけを対象にした制度が掲載されています。</p>
   <ul class="facets">
-    {rows.map((r) => (
+    {withLocal.map((r) => (
+      <li>
+        <a href={`/area/${r.slug}/`}>{r.pref} <span class="count">{r.n}件（うち県独自{r.local}件）</span></a>
+      </li>
+    ))}
+  </ul>
+
+  <h2>全国対象の制度のみの地域（{rest.length}県）</h2>
+  <p class="lead">
+    現時点では、これらの地域を対象にした県独自の制度が公開データに登録されていません。
+    表示されるのは全国どこでも使える制度で、内容はどの県を選んでも同じです。
+  </p>
+  <ul class="facets">
+    {rest.map((r) => (
       <li><a href={`/area/${r.slug}/`}>{r.pref} <span class="count">{r.n}件</span></a></li>
     ))}
   </ul>
