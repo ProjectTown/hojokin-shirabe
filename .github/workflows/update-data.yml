@@ -58,7 +58,7 @@ jobs:
         continue-on-error: true
         env:
           # 手動実行で「障害を模擬」を選んだ場合だけ、到達しない先を向けて失敗させる
-          JGRANTS_API_BASE: "https://invalid.example.invalid"
+          JGRANTS_API_BASE: ${{ inputs.simulate_fetch_failure && 'https://invalid.example.invalid' || '' }}
         run: npm run fetch
 
       # 取得に失敗した場合、normalize が直前の subsidies.json を維持する。

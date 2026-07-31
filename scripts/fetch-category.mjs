@@ -17,7 +17,9 @@ import { redactFields } from "./redact.mjs";
 
 // 通常はデジタル庁の公開エンドポイント。
 // 障害時の退避動作を検証するときだけ JGRANTS_API_BASE で差し替える。
-const API = `${process.env.JGRANTS_API_BASE ?? "https://api.jgrants-portal.go.jp"}/exp/v1/public/subsidies`;
+// CIは未指定の環境変数を空文字で渡してくるため、?? ではなく || で判定する
+// （?? だと空文字が有効値と見なされ、URLが相対パスになって必ず失敗する）。
+const API = `${process.env.JGRANTS_API_BASE || "https://api.jgrants-portal.go.jp"}/exp/v1/public/subsidies`;
 const ROOT = path.resolve(import.meta.dirname, "..");
 const DATA_DIR = path.join(ROOT, "data");
 const CACHE_DIR = path.join(DATA_DIR, "details");
