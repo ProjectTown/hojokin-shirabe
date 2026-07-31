@@ -3,3 +3,7 @@ dist/
 .astro/
 .DS_Store
 *.log
+
+# 派生ファイル（CIが毎回生成するため追跡しない。競合の原因になる）
+data/subsidies.json
+data/seo.json
