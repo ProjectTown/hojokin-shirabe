@@ -72,6 +72,11 @@ jobs:
           # Search Console の所有権確認タグ。公開前提の値なので Variables に置く。
           PUBLIC_GSC_VERIFICATION: ${{ vars.GSC_VERIFICATION }}
 
+      # 公開前の関門。noindexとサイトマップの矛盾、canonicalの誤り、
+      # 見出し構造やタイトル重複を検出したらここで止める。
+      - name: SEO整合性を検査
+        run: node scripts/seo-audit.mjs
+
       - name: Cloudflare Pages へ公開
         uses: cloudflare/wrangler-action@v3
         with:

@@ -131,9 +131,29 @@ console.log(`4クリック以上      : ${deep.length}件`);
 const sizes = indexable.map((p) => Buffer.byteLength(p.html));
 const css = fs.readdirSync(path.join(DIST, "_astro")).filter((f) => f.endsWith(".css"));
 const cssBytes = css.reduce((n, f) => n + fs.statSync(path.join(DIST, "_astro", f)).size, 0);
+// 致命的な不整合は失敗として扱う。
+// 実際に seo.json の再生成を忘れ、noindexにしたはずのページが
+// サイトマップに残ったまま公開されかけた。CIで止められるようにする。
+const fatal = [];
+if (contradiction.length) fatal.push(`noindexページがサイトマップに${contradiction.length}件`);
+if (missing.length) fatal.push(`掲載対象がサイトマップから${missing.length}件漏れ`);
+if (badCanon.length) fatal.push(`canonicalが自ページを指さないページ${badCanon.length}件`);
+if (badH1.length) fatal.push(`h1が1個でないページ${badH1.length}件`);
+if (dupT.length) fatal.push(`titleが重複${dupT.length}種`);
+if (noDesc.length) fatal.push(`descriptionなし${noDesc.length}件`);
+if (unreachable.length) fatal.push(`トップから到達できない掲載ページ${unreachable.length}件`);
+
 console.log("");
 console.log("=== ページ重量（Core Web Vitals の目安） ===");
 console.log(`HTML 中央値 : ${Math.round(sizes.sort((a, b) => a - b)[Math.floor(sizes.length / 2)] / 1024)} KB`);
 console.log(`HTML 最大   : ${Math.round(Math.max(...sizes) / 1024)} KB (${indexable.find((p) => Buffer.byteLength(p.html) === Math.max(...sizes)).url})`);
 console.log(`CSS 合計    : ${Math.round(cssBytes / 1024)} KB (${css.length}ファイル)`);
 console.log(`JSファイル  : ${fs.readdirSync(path.join(DIST, "_astro")).filter((f) => f.endsWith(".js")).length} 個`);
+
+console.log("");
+if (fatal.length) {
+  console.error("=== 検査に失敗しました ===");
+  for (const f of fatal) console.error(`  - ${f}`);
+  process.exit(1);
+}
+console.log("=== 検査に合格 ===");
