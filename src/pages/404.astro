@@ -1,0 +1,61 @@
+---
+/**
+ * 404ページ。
+ *
+ * Cloudflare Pages は 404.html が無いと、存在しないURLに対して
+ * index.html を HTTP 200 で返してしまう。これは任意のURLで
+ * トップページの複製が生まれる状態（ソフト404）で、検索評価を損なう。
+ * このファイルを置くことで正しく 404 を返せるようになる。
+ */
+import Base from "../layouts/Base.astro";
+import { dataset, seo, byArea, byIndustry, PREF_SLUG, INDUSTRY_SLUG } from "../lib/data";
+
+const areas = seo.indexableAreas.slice(0, 6);
+const industries = seo.indexableIndustries.slice(0, 6);
+---
+
+<Base
+  title="ページが見つかりません｜補助金しらべ"
+  description="お探しのページは見つかりませんでした。募集が終了して一覧から外れた可能性があります。"
+  noindex={true}
+  canonicalPath="/"
+>
+  <h1>ページが見つかりません</h1>
+
+  <div class="empty">
+    <p><b>お探しのページは見つかりませんでした。</b></p>
+    <p>
+      補助金の募集が終了し、一覧から外れた可能性があります。
+      掲載しているのは現在募集中の制度のみです。
+    </p>
+  </div>
+
+  <h2>探し直す</h2>
+  <ul class="facets">
+    <li><a href="/deadline/">募集中の全{dataset.counts.subsidies}件を締切順に見る</a></li>
+    <li><a href="/search/">条件を指定して探す</a></li>
+    <li><a href="/">トップへ戻る</a></li>
+  </ul>
+
+  <h2>地域から</h2>
+  <ul class="facets">
+    {areas.map((p) => (
+      <li><a href={`/area/${PREF_SLUG[p]}/`}>{p} <span class="count">{byArea(p).length}件</span></a></li>
+    ))}
+    <li><a href="/area/">47都道府県すべて</a></li>
+  </ul>
+
+  <h2>業種から</h2>
+  <ul class="facets">
+    {industries.map((i) => (
+      <li><a href={`/industry/${INDUSTRY_SLUG[i]}/`}>{i} <span class="count">{byIndustry(i).length}件</span></a></li>
+    ))}
+    <li><a href="/industry/">業種一覧</a></li>
+  </ul>
+
+  <div class="notice">
+    募集終了した制度の内容は
+    <a href="https://www.jgrants-portal.go.jp/" rel="noopener nofollow">Jグランツ公式サイト</a>
+    で確認できる場合があります。
+  </div>
+</Base>
