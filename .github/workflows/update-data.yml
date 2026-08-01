@@ -69,6 +69,8 @@ jobs:
         run: npm run build
         env:
           SITE_URL: https://hojokin-shirabe.pages.dev
+          # Search Console の所有権確認タグ。公開前提の値なので Variables に置く。
+          PUBLIC_GSC_VERIFICATION: ${{ vars.GSC_VERIFICATION }}
 
       - name: Cloudflare Pages へ公開
         uses: cloudflare/wrangler-action@v3

@@ -9,6 +9,13 @@ import { dataset, dataAgeDays, isStale } from "../lib/data";
  */
 const beaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN ?? "";
 
+/**
+ * Google Search Console の所有権確認用トークン。
+ * ページのHTMLに埋めて公開する前提の値で、秘密情報ではない。
+ * 設定されている時だけメタタグを出す。
+ */
+const gscToken = import.meta.env.PUBLIC_GSC_VERIFICATION ?? "";
+
 interface Props {
   title: string;
   description: string;
@@ -34,6 +41,7 @@ const ageDays = dataAgeDays();
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex,follow" />}
+    {gscToken && <meta name="google-site-verification" content={gscToken} />}
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
