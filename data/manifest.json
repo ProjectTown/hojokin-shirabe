@@ -29,9 +29,9 @@
     "a0WJ200000CDY9gMAH",
     "a0WJ200000CDbHxMAL",
     "a0WJ200000CDYr0MAH",
-    "a0WJ200000CDd5SMAT",
     "a0WJ200000CDYzVMAX",
     "a0WJ200000CDZ1GMAX",
+    "a0WJ200000CDd5SMAT",
     "a0WJ200000CDY1fMAH",
     "a0WJ200000CDNDnMAP",
     "a0WJ200000CDcODMA1",
@@ -97,5 +97,5 @@
     "maxPerSearch": 100,
     "maxRequests": 110
   },
-  "updatedAt": "2026-07-31T23:55:09.832Z"
+  "updatedAt": "2026-08-01T00:09:58.325Z"
 }
