@@ -1,0 +1,49 @@
+---
+/**
+ * 全国どこでも使える制度の一覧。
+ *
+ * 掲載の約半分が全国対象のため、これを各都道府県ページに載せると
+ * どの県のページも同じ内容で埋まってしまう（実測で最大100%一致）。
+ * 全国分をこのページに集約し、都道府県ページはその県だけの制度に絞る。
+ * 利用者にとっても「自分の県だけの制度」と「全国共通の制度」が
+ * 分かれている方が探しやすい。
+ */
+import Base from "../../layouts/Base.astro";
+import SubsidyCard from "../../components/SubsidyCard.astro";
+import { subsidies, statusOf, dataset } from "../../lib/data";
+
+const national = subsidies.filter((s) => s.isNational);
+const open = national.filter((s) => statusOf(s).kind !== "closed");
+const closed = national.filter((s) => statusOf(s).kind === "closed");
+
+const title = `全国どこでも使える補助金${open.length}件｜補助金しらべ`;
+const description = `地域を問わず全国の事業者が対象になる補助金を${open.length}件掲載。上限額・補助率・締切を同じ形式で比較できます。登録不要・無料。`;
+---
+
+<Base title={title} description={description}>
+  <p class="crumbs"><a href="/">トップ</a> ／ 全国対象の補助金</p>
+
+  <h1>全国どこでも使える補助金</h1>
+  <p class="lead">
+    対象地域が「全国」となっている制度 <b>{open.length}件</b> です。
+    どの都道府県の事業者でも申請の対象になり得ます。締切が近い順に並べています。
+  </p>
+
+  <p><a href="/area/">お住まいの都道府県だけの制度を見る →</a></p>
+
+  <ul class="card-list">{open.map((s) => <SubsidyCard s={s} />)}</ul>
+
+  {closed.length > 0 && (
+    <>
+      <h2>受付終了（データ上の期限を過ぎたもの）</h2>
+      <ul class="card-list">{closed.map((s) => <SubsidyCard s={s} />)}</ul>
+    </>
+  )}
+
+  <div class="notice">
+    掲載はデジタル庁の公開データを整理したものです。
+    <strong>受給できるかどうかの判定は行いません。</strong>
+    対象要件・締切は各制度の公式ページで必ずご確認ください。
+    現在扱っている目的分野は{dataset.categories.length}種類です。
+  </div>
+</Base>

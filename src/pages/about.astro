@@ -18,7 +18,7 @@ const updated = new Date(dataset.sourceUpdatedAt).toLocaleDateString("ja-JP");
     このサイトは公開されている補助金データを<b>同じ項目に整形し直して</b>、
     「上限額」「補助率」「対象地域」「対象業種」「締切までの残り日数」を横並びで見比べられるようにしたものです。
   </p>
-  <p>現在の掲載範囲は「{dataset.category}」のカテゴリで募集中の {dataset.counts.subsidies}件です。</p>
+  <p>現在の掲載範囲は、Jグランツが分類する{dataset.categories.length}種類の目的カテゴリすべてで募集中の {dataset.counts.subsidies}件です。</p>
 
   <h2>データの出典</h2>
   <ul>
@@ -67,7 +67,6 @@ const updated = new Date(dataset.sourceUpdatedAt).toLocaleDateString("ja-JP");
   <h2>掲載の範囲と限界</h2>
   <ul>
     <li>公開APIに登録されていない制度（市区町村独自の小規模な補助金など）は掲載されません。</li>
-    <li>現在は1カテゴリのみを対象にしています。掲載範囲は今後の利用状況を見て判断します。</li>
-    <li>募集終了した制度は一覧から外れます。</li>
+    <li>掲載しているのは募集中の制度のみです。募集終了したものは一覧から外れます。</li>
   </ul>
 </Base>

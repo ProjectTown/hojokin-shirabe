@@ -11,7 +11,7 @@ const { industry } = Astro.props;
 const results = byIndustry(industry);
 const areas = dataset.facets.areas.filter((a) => results.some((s) => !s.isNational && s.areas.includes(a)));
 
-const title = `${industry}が対象の補助金${results.length}件｜設備投資・IT導入｜補助金しらべ`;
+const title = `${industry}が対象の補助金${results.length}件｜補助金しらべ`;
 const description = `${industry}の事業者が対象になる募集中の補助金を${results.length}件掲載。上限額・補助率・締切を同じ形式で比較できます。`;
 ---
 
@@ -19,7 +19,7 @@ const description = `${industry}の事業者が対象になる募集中の補助
   <p class="crumbs"><a href="/">トップ</a> ／ <a href="/industry/">業種から探す</a> ／ {industry}</p>
 
   <h1>{industry}が対象になる補助金</h1>
-  <p class="lead">設備整備・IT導入の分野で現在募集中のもの <b>{results.length}件</b>。締切が近い順です。</p>
+  <p class="lead">現在募集中のもの <b>{results.length}件</b>。締切が近い順です。</p>
 
   {areas.length > 0 && (
     <>

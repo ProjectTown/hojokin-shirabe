@@ -26,13 +26,14 @@ export type Subsidy = {
 };
 
 export type Dataset = {
-  category: string;
+  /** Jグランツの目的カテゴリ（use_purpose）のうち、取得対象にしたもの */
+  categories: string[];
   sourceUpdatedAt: string;
   /** 最後にAPI取得へ成功した時刻。取得に失敗した回はこの値が据え置かれる。 */
   lastSuccessfulFetch?: string;
   generatedAt: string;
-  counts: { subsidies: number; areas: number; industries: number };
-  facets: { areas: string[]; industries: string[] };
+  counts: { subsidies: number; areas: number; industries: number; purposes: number };
+  facets: { areas: string[]; industries: string[]; purposes: string[] };
   records: Subsidy[];
 };
 

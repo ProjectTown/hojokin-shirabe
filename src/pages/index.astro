@@ -13,12 +13,12 @@ const majorAreas = [...seo.indexableAreas].sort(
   (a, b) => localOnly.filter((s) => s.areas.includes(b)).length - localOnly.filter((s) => s.areas.includes(a)).length,
 );
 const topIndustries = [...seo.indexableIndustries].sort((a, b) => byIndustry(b).length - byIndustry(a).length).slice(0, 10);
-const title = "補助金しらべ｜設備投資・IT導入の補助金を条件で探す";
+const title = "補助金しらべ｜募集中の補助金を地域・業種・締切で探す";
 const description = `募集中の補助金${dataset.counts.subsidies}件を、地域・業種・締切で横並びに比較できます。登録不要・無料。出典はデジタル庁の公開データです。`;
 ---
 
 <Base title={title} description={description}>
-  <h1>設備投資・IT導入に使える補助金を、条件で絞って比べる</h1>
+  <h1>募集中の補助金を、地域・業種・締切で絞って比べる</h1>
   <p class="lead">
     受付中の <b>{open.length}件</b> を、上限額・補助率・締切をそろえた同じ形式で表示しています。
     会員登録は不要で、個人情報は一切収集しません。

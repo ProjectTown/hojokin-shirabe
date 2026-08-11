@@ -1,60 +1,72 @@
 ---
+/**
+ * 都道府県ページ。
+ *
+ * その県だけを対象にした制度に絞って表示する。
+ * 全国対象の制度は /national/ に集約した。全ページに載せると
+ * どの県も同じ内容になり、実測で最大100%一致していたため。
+ */
 import Base from "../../layouts/Base.astro";
 import SubsidyCard from "../../components/SubsidyCard.astro";
-import { byArea, PREF_SLUG, INDUSTRY_SLUG, dataset, isIndexableArea } from "../../lib/data";
+import { subsidies, byArea, PREF_SLUG, INDUSTRY_SLUG, dataset, isIndexableArea } from "../../lib/data";
 
 export function getStaticPaths() {
   return Object.entries(PREF_SLUG).map(([pref, slug]) => ({ params: { pref: slug }, props: { pref } }));
 }
 
 const { pref } = Astro.props;
-const results = byArea(pref);
-const local = results.filter((s) => !s.isNational);
-const national = results.filter((s) => s.isNational);
+const local = byArea(pref).filter((s) => !s.isNational);
+const nationalCount = subsidies.filter((s) => s.isNational).length;
 
-// この地域で実際に対象になっている業種だけ出す
-const industries = dataset.facets.industries.filter((i) => results.some((s) => s.industries.includes(i)));
+// この県の制度が実際に対象としている業種だけ出す
+const industries = dataset.facets.industries.filter((i) => local.some((s) => s.industries.includes(i)));
 
-const title = `${pref}で使える補助金${results.length}件｜設備投資・IT導入｜補助金しらべ`;
-const description = `${pref}の事業者が対象になる募集中の補助金を${results.length}件（${pref}独自${local.length}件・全国対象${national.length}件）掲載。締切順に比較できます。`;
+const title = `${pref}独自の補助金${local.length}件｜補助金しらべ`;
+const description = `${pref}が独自に実施している募集中の補助金を${local.length}件掲載。上限額・補助率・締切を横並びで比較できます。全国対象の制度は別ページにまとめています。`;
 ---
 
 <Base title={title} description={description} noindex={!isIndexableArea(pref)}>
   <p class="crumbs"><a href="/">トップ</a> ／ <a href="/area/">地域から探す</a> ／ {pref}</p>
 
-  <h1>{pref}の事業者が使える補助金</h1>
+  <h1>{pref}独自の補助金</h1>
   <p class="lead">
-    設備整備・IT導入の分野で現在募集中のもの <b>{results.length}件</b>
-    （{pref}を対象地域に含む制度 {local.length}件 ／ 全国対象 {national.length}件）。締切が近い順です。
+    {pref}や県内の自治体が実施していて、対象地域に{pref}が指定されている制度 <b>{local.length}件</b> です。
+    締切が近い順に並べています。
   </p>
 
-  <h2>業種で絞り込む</h2>
-  <ul class="facets">
-    {industries.map((i) => (
-      <li>
-        <a href={`/find/${PREF_SLUG[pref]}/${INDUSTRY_SLUG[i]}/`}>
-          {i} <span class="count">{results.filter((s) => s.industries.includes(i)).length}件</span>
-        </a>
-      </li>
-    ))}
-  </ul>
+  <div class="notice">
+    このほかに、地域を問わず使える<a href="/national/">全国対象の制度が{nationalCount}件</a>あります。
+    {pref}の事業者はそちらも対象になり得ます。
+  </div>
 
-  {local.length > 0 && (
-    <>
-      <h2>{pref}を対象地域に含む制度（{local.length}件）</h2>
-      <ul class="card-list">{local.map((s) => <SubsidyCard s={s} />)}</ul>
-    </>
+  {local.length > 0 ? (
+    <ul class="card-list">{local.map((s) => <SubsidyCard s={s} />)}</ul>
+  ) : (
+    <div class="empty">
+      <p><b>現在、{pref}独自の募集中の制度は公開データに登録されていません。</b></p>
+      <p><a href="/national/">全国対象の制度{nationalCount}件</a>をご確認ください。</p>
+    </div>
   )}
 
-  {national.length > 0 && (
+  {industries.length > 0 && (
     <>
-      <h2>全国対象の制度（{national.length}件）</h2>
-      <ul class="card-list">{national.map((s) => <SubsidyCard s={s} />)}</ul>
+      <h2>業種で絞り込む</h2>
+      <p class="lead">全国対象の制度も含めた絞り込み結果を表示します。</p>
+      <ul class="facets">
+        {industries.map((i) => (
+          <li>
+            <a href={`/find/${PREF_SLUG[pref]}/${INDUSTRY_SLUG[i]}/`}>
+              {i} <span class="count">{local.filter((s) => s.industries.includes(i)).length}件</span>
+            </a>
+          </li>
+        ))}
+      </ul>
     </>
   )}
 
   <div class="notice">
     掲載情報はデジタル庁の公開データを整理したものです。
-    <strong>受給可否の判定は行っていません。</strong>市区町村独自の制度など、公開APIに登録されていない補助金は掲載されない場合があります。
+    <strong>受給可否の判定は行っていません。</strong>
+    市区町村独自の制度など、公開APIに登録されていない補助金は掲載されない場合があります。
   </div>
 </Base>

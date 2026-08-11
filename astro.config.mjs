@@ -21,6 +21,7 @@ const allowed = new Set([
   "/area/",
   "/industry/",
   "/deadline/",
+  "/national/",
   "/about/",
   ...seo.indexableAreas.map((p) => `/area/${PREF_SLUG[p]}/`),
   ...seo.indexableIndustries.map((i) => `/industry/${INDUSTRY_SLUG[i]}/`),

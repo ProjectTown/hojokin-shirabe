@@ -1,50 +1,53 @@
 ---
 import Base from "../../layouts/Base.astro";
-import { byArea, subsidies, PREF_SLUG, isIndexableArea } from "../../lib/data";
+import { subsidies, PREF_SLUG, isIndexableArea } from "../../lib/data";
 
 const localOnly = subsidies.filter((s) => !s.isNational);
-const rows = Object.keys(PREF_SLUG).map((pref) => ({
-  pref,
-  slug: PREF_SLUG[pref],
-  n: byArea(pref).length,
-  local: localOnly.filter((s) => s.areas.includes(pref)).length,
-}));
-// 県独自の制度があるかどうかで分ける。後者はどの県を選んでも同じ内容になる。
-const withLocal = rows.filter((r) => isIndexableArea(r.pref));
-const rest = rows.filter((r) => !isIndexableArea(r.pref));
+const nationalCount = subsidies.length - localOnly.length;
+const rows = Object.keys(PREF_SLUG)
+  .map((pref) => ({
+    pref,
+    slug: PREF_SLUG[pref],
+    local: localOnly.filter((s) => s.areas.includes(pref)).length,
+  }))
+  .sort((a, b) => b.local - a.local);
+
+// 掲載対象かどうかで分ける。少数の県は内容が薄いため検索には載せていない。
+const main = rows.filter((r) => isIndexableArea(r.pref));
+const few = rows.filter((r) => !isIndexableArea(r.pref));
 ---
 
 <Base
   title="都道府県から補助金を探す（全国47都道府県）｜補助金しらべ"
-  description="47都道府県それぞれで使える設備投資・IT導入の補助金を一覧できます。登録不要・無料。"
+  description="47都道府県それぞれが独自に実施している補助金を一覧できます。登録不要・無料。"
 >
   <p class="crumbs"><a href="/">トップ</a> ／ 地域から探す</p>
   <h1>都道府県から探す</h1>
-  <p class="lead">各都道府県の事業者が対象になる制度の件数です。全国対象の制度も含みます。</p>
-
-  <h2>県独自の制度がある地域（{withLocal.length}県）</h2>
-  <p class="lead">その地域だけを対象にした制度が掲載されています。</p>
-  <ul class="facets">
-    {withLocal.map((r) => (
-      <li>
-        <a href={`/area/${r.slug}/`}>{r.pref} <span class="count">{r.n}件（うち県独自{r.local}件）</span></a>
-      </li>
-    ))}
-  </ul>
-
-  <h2>全国対象の制度のみの地域（{rest.length}県）</h2>
   <p class="lead">
-    現時点では、これらの地域を対象にした県独自の制度が公開データに登録されていません。
-    表示されるのは全国どこでも使える制度で、内容はどの県を選んでも同じです。
+    各都道府県が独自に実施している制度の件数です。
+    地域を問わず使える制度は <a href="/national/">全国対象の補助金{nationalCount}件</a> にまとめています。
   </p>
+
   <ul class="facets">
-    {rest.map((r) => (
-      <li><a href={`/area/${r.slug}/`}>{r.pref} <span class="count">{r.n}件</span></a></li>
+    {main.map((r) => (
+      <li><a href={`/area/${r.slug}/`}>{r.pref} <span class="count">{r.local}件</span></a></li>
     ))}
   </ul>
+
+  {few.length > 0 && (
+    <>
+      <h2>掲載件数が少ない地域（{few.length}県）</h2>
+      <p class="lead">公開データに登録されている県独自の制度が2件以下の地域です。</p>
+      <ul class="facets">
+        {few.map((r) => (
+          <li><a href={`/area/${r.slug}/`}>{r.pref} <span class="count">{r.local}件</span></a></li>
+        ))}
+      </ul>
+    </>
+  )}
 
   <div class="notice">
-    件数はデジタル庁の公開データに登録されている、設備整備・IT導入分野で募集中の制度に限られます。
+    件数はデジタル庁の公開データに登録されている、募集中の制度に限られます。
     市区町村が独自に実施する制度は含まれない場合があります。
   </div>
 </Base>

@@ -1,11 +1,13 @@
 /**
- * デジタル庁 Jグランツ 公開APIから「1カテゴリ分だけ」補助金データを取得する。
+ * デジタル庁 Jグランツ 公開APIから、募集中の補助金を目的カテゴリ別に取得する。
  *
- * 方針（意図的に小さく保つ）:
- *   - 対象は use_purpose で指定した 1 カテゴリのみ。全件クロールはしない。
+ * 方針:
+ *   - 検索は use_purpose のカテゴリ単位。無差別な全件クロールはしない。
  *   - 1回の検索で扱う件数は MAX_PER_SEARCH (=100) 件までに切り詰める。
- *   - 1回の実行で送るリクエスト総数を MAX_REQUESTS で上限管理し、超えたら中断する。
- *   - 取得済みの詳細はキャッシュして再取得しない。
+ *   - 1回の実行で送るリクエスト総数を MAX_REQUESTS で上限管理する。
+ *     上限に達したら中断し、続きは次回の実行で取得する（再開可能）。
+ *   - 取得済みの詳細はキャッシュして再取得しない。日次実行では
+ *     新規に増えた分だけを取りに行くので、通常は数十リクエストで終わる。
  *
  * API はデジタル庁が公開する無料・認証不要のエンドポイント。
  * 利用料・APIキー・アカウント登録のいずれも発生しない。
@@ -27,13 +29,19 @@ const CACHE_DIR = path.join(DATA_DIR, "details");
 // ---- 取得範囲のハードリミット -------------------------------------------
 /** 1回の検索で扱う最大件数。これを超える分は捨てる。 */
 const MAX_PER_SEARCH = 100;
-/** 1回の実行で送信してよいHTTPリクエストの総数。 */
-const MAX_REQUESTS = 110;
+/**
+ * 1回の実行で送信してよいHTTPリクエストの総数。
+ * 初回は全カテゴリ分をまとめて取るため大きめだが、上限に達したら中断して
+ * 続きは翌日の実行に回す。日次運用では新規分だけなので通常は数十件で終わる。
+ */
+const MAX_REQUESTS = Number(process.env.MAX_REQUESTS ?? 1200);
 /** 同時接続数。相手は公共APIなので低く保つ。 */
 const CONCURRENCY = 3;
+/** 詳細取得の間隔(ms)。 */
+const DETAIL_INTERVAL = 250;
 // -------------------------------------------------------------------------
 
-/** Jグランツが公式に持つカテゴリ（use_purpose）。今回の対象は 1 つだけ。 */
+/** Jグランツが公式に持つ目的カテゴリ（use_purpose）。 */
 export const CATEGORIES = [
   "設備整備・IT導入をしたい",
   "新たな事業を行いたい",
@@ -52,7 +60,8 @@ export const CATEGORIES = [
   "教育・子育て・少子化支援がほしい",
 ];
 
-const TARGET_CATEGORY = process.env.CATEGORY ?? CATEGORIES[0];
+// CATEGORY を指定すればそのカテゴリだけ。未指定なら全カテゴリ。
+const TARGET_CATEGORIES = process.env.CATEGORY ? [process.env.CATEGORY] : CATEGORIES;
 
 let requestCount = 0;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -146,49 +155,82 @@ async function pool(items, concurrency, worker) {
 
 async function main() {
   await mkdir(CACHE_DIR, { recursive: true });
-  console.log(`対象カテゴリ: ${TARGET_CATEGORY}`);
+  console.log(`対象カテゴリ: ${TARGET_CATEGORIES.length}件`);
   console.log(`上限: 1検索あたり ${MAX_PER_SEARCH} 件 / 実行あたり ${MAX_REQUESTS} リクエスト\n`);
 
-  console.log("1) カテゴリ検索（1リクエスト）");
-  const { items, total } = await searchCategory(TARGET_CATEGORY);
-  console.log(`   募集中 ${total} 件中 ${items.length} 件を対象にする`);
+  console.log(`1) カテゴリ検索（${TARGET_CATEGORIES.length}リクエスト）`);
+  /** @type {Map<string, any>} */
+  const byId = new Map();
+  const perCategory = {};
+  for (const category of TARGET_CATEGORIES) {
+    try {
+      const { items, total } = await searchCategory(category);
+      for (const it of items) byId.set(it.id, it);
+      perCategory[category] = { open: total, collected: items.length };
+      console.log(`   ${String(items.length).padStart(3)}件  ${category}`);
+    } catch (err) {
+      perCategory[category] = { error: err.message };
+      console.warn(`   ! ${category}: ${err.message}`);
+    }
+    await sleep(200);
+  }
+  const allItems = [...byId.values()];
+  console.log(`   重複を除いた合計: ${allItems.length} 件`);
 
   const cached = new Set(
     (await readdir(CACHE_DIR).catch(() => [])).filter((f) => f.endsWith(".json")).map((f) => f.slice(0, -5)),
   );
-  const targets = items.filter((it) => !cached.has(it.id));
-  console.log(`\n2) 詳細取得: ${targets.length} 件 (キャッシュ流用 ${items.length - targets.length} 件)`);
+  const targets = allItems.filter((it) => !cached.has(it.id));
+  console.log(`\n2) 詳細取得: ${targets.length} 件 (キャッシュ流用 ${allItems.length - targets.length} 件)`);
 
   let ok = 0;
   let fail = 0;
+  let stopped = false;
   try {
     await pool(targets, CONCURRENCY, async (item) => {
+      if (stopped) return;
       try {
         const slim = slimDetail(await getJson(`${API}/id/${encodeURIComponent(item.id)}`));
         if (!slim) return void fail++;
         await writeFile(path.join(CACHE_DIR, `${item.id}.json`), JSON.stringify(slim));
         ok++;
+        if (ok % 100 === 0) console.log(`   ${ok}/${targets.length} 取得済み`);
       } catch (err) {
+        if (/リクエスト上限/.test(err.message)) {
+          stopped = true;
+          console.warn(`   ${err.message}。残りは次回の実行で取得します。`);
+          return;
+        }
         fail++;
         console.warn(`   ! ${item.id}: ${err.message}`);
       }
-      await sleep(200);
+      await sleep(DETAIL_INTERVAL);
     });
   } catch (err) {
     console.warn(`   中断: ${err.message}`);
   }
 
+  // 詳細が揃っているものだけを掲載対象にする。
+  // 上限で中断した場合、未取得分は次回の実行で加わる。
+  const nowCached = new Set(
+    (await readdir(CACHE_DIR).catch(() => [])).filter((f) => f.endsWith(".json")).map((f) => f.slice(0, -5)),
+  );
+  const ids = allItems.map((i) => i.id).filter((id) => nowCached.has(id));
+
   const manifest = {
-    category: TARGET_CATEGORY,
-    totalOpenInCategory: total,
-    collected: items.length,
-    ids: items.map((i) => i.id),
+    categories: TARGET_CATEGORIES,
+    perCategory,
+    totalOpen: allItems.length,
+    collected: ids.length,
+    pending: allItems.length - ids.length,
+    ids,
     limits: { maxPerSearch: MAX_PER_SEARCH, maxRequests: MAX_REQUESTS },
     updatedAt: new Date().toISOString(),
   };
   await writeFile(path.join(DATA_DIR, "manifest.json"), JSON.stringify(manifest, null, 2));
 
   console.log(`\n完了: ok=${ok} fail=${fail} / 送信リクエスト数 ${requestCount}`);
+  console.log(`掲載可能 ${ids.length} 件 / 未取得 ${manifest.pending} 件`);
 }
 
 main().catch((err) => {

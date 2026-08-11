@@ -145,9 +145,9 @@ async function keepPrevious(reason) {
 function buildSeoPolicy(records, areas, industries) {
   const local = records.filter((r) => !r.isNational);
 
-  // 都道府県: その県を対象にした地域限定の制度が2件以上あるか。
-  // 1件だと残りが全国分で埋まり、県どうしのページが96%一致してしまう（実測）。
-  const MIN_LOCAL_AREA = 2;
+  // 都道府県ページはその県だけの制度を載せる（全国分は /national/ に集約）。
+  // 内容は県ごとに重ならないが、2件しかないページは内容が薄いので掲載しない。
+  const MIN_LOCAL_AREA = 3;
   const indexableAreas = areas.filter(
     (p) => local.filter((r) => r.areas.includes(p)).length >= MIN_LOCAL_AREA,
   );
@@ -174,9 +174,9 @@ function buildSeoPolicy(records, areas, industries) {
   return {
     generatedAt: new Date().toISOString(),
     rule: {
-      area: "その県限定の制度が1件以上",
+      area: `その県限定の制度が${MIN_LOCAL_AREA}件以上`,
       industry: `対象業種を${SPECIFIC_MAX}業種以下に絞った制度が2件以上`,
-      find: "その地域×業種に地域限定の制度が1件以上",
+      find: "掲載しない（組み合わせページは相互に重複するため）",
     },
     counts: {
       areas: `${indexableAreas.length}/${areas.length}`,
@@ -227,13 +227,22 @@ async function main() {
   const industries = [...new Set(records.flatMap((r) => r.industries))].sort();
   const areasUsed = PREFECTURES.filter((p) => records.some((r) => r.areas.includes(p)));
 
+  const purposes = [...new Set(records.flatMap((r) => r.purposes))].sort(
+    (a, b) => records.filter((r) => r.purposes.includes(b)).length - records.filter((r) => r.purposes.includes(a)).length,
+  );
+
   const out = {
-    category: manifest.category,
+    categories: manifest.categories ?? [manifest.category],
     sourceUpdatedAt: manifest.updatedAt,
     lastSuccessfulFetch: manifest.updatedAt,
     generatedAt: new Date().toISOString(),
-    counts: { subsidies: records.length, areas: areasUsed.length, industries: industries.length },
-    facets: { areas: areasUsed, industries },
+    counts: {
+      subsidies: records.length,
+      areas: areasUsed.length,
+      industries: industries.length,
+      purposes: purposes.length,
+    },
+    facets: { areas: areasUsed, industries, purposes },
     records,
   };
 
@@ -249,7 +258,7 @@ async function main() {
   await writeFile(path.join(DATA_DIR, "seo.json"), JSON.stringify(buildSeoPolicy(records, areasUsed, industries), null, 2));
   console.log(`整形完了: ${records.length} 件 / 地域 ${areasUsed.length} / 業種 ${industries.length}`);
   console.log("連絡先チェック: メール0件 / 電話0件");
-  console.log(`カテゴリ: ${manifest.category}`);
+  console.log(`カテゴリ: ${(manifest.categories ?? [manifest.category]).length}種類`);
 }
 
 main().catch((e) => {
