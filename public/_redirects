@@ -1,0 +1,5 @@
+# クローラや管理ツールは慣習的に /sitemap.xml を見に来る。
+# このサイトの実体は @astrojs/sitemap が生成する /sitemap-index.xml のため、
+# 転送してどちらのURLでも辿り着けるようにする。
+# （Search Console に /sitemap.xml を送信して「取得できませんでした」になった実例あり）
+/sitemap.xml /sitemap-index.xml 301
