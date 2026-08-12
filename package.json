@@ -10,7 +10,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "normalize": "node scripts/normalize.mjs",
-    "data": "npm run fetch && npm run normalize"
+    "programs": "node scripts/fetch-programs.mjs",
+    "data": "npm run fetch && npm run normalize && npm run programs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.0",

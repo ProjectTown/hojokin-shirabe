@@ -181,3 +181,21 @@ footer.site nav { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 14px
 
 .crumbs { font-size: .82rem; color: var(--muted); margin: 0 0 14px; }
 .crumbs a { color: var(--muted); }
+
+/* 制度ページ: 回次の時系列表。列が多いので狭い画面では表だけ横に送る。 */
+.table-scroll { overflow-x: auto; margin: 16px 0; }
+.rounds { width: 100%; border-collapse: collapse; font-size: .9rem; white-space: nowrap; }
+.rounds th, .rounds td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+.rounds thead th { background: var(--surface); font-weight: 600; }
+.rounds tbody th { font-weight: 600; background: var(--surface); }
+.rounds tr.is-upcoming { background: var(--accent-soft); }
+.rounds tr.is-upcoming th { background: var(--accent-soft); color: var(--accent); }
+
+.callout {
+  border: 1px solid var(--accent);
+  background: var(--accent-soft);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  margin: 16px 0;
+  font-size: .92rem;
+}

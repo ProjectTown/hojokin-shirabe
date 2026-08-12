@@ -9,6 +9,7 @@ import { PREF_SLUG, INDUSTRY_SLUG } from "./src/lib/slugs.mjs";
 const site = process.env.SITE_URL ?? process.env.CF_PAGES_URL ?? "https://hojokin-shirabe.pages.dev";
 
 const seo = JSON.parse(readFileSync(new URL("./data/seo.json", import.meta.url), "utf8"));
+const programs = JSON.parse(readFileSync(new URL("./data/programs.json", import.meta.url), "utf8"));
 
 /**
  * サイトマップに載せてよいURLの集合。
@@ -23,6 +24,8 @@ const allowed = new Set([
   "/deadline/",
   "/national/",
   "/about/",
+  "/program/",
+  ...programs.programs.map((p) => `/program/${p.slug}/`),
   ...seo.indexableAreas.map((p) => `/area/${PREF_SLUG[p]}/`),
   ...seo.indexableIndustries.map((i) => `/industry/${INDUSTRY_SLUG[i]}/`),
   ...seo.indexableFinds.map((k) => {

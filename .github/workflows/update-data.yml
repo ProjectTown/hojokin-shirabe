@@ -65,6 +65,15 @@ jobs:
       - name: 整形（失敗時は既存データを維持）
         run: npm run normalize
 
+      # 制度ごとの公募履歴。検索APIを3回だけ引く。
+      # 失敗しても data/programs.json（追跡対象）が前回分として残るため、
+      # 制度ページが日替わりで消えることはない。
+      - name: 公募履歴を更新（失敗時は既存データを維持）
+        continue-on-error: true
+        env:
+          JGRANTS_API_BASE: ${{ inputs.simulate_fetch_failure && 'https://invalid.example.invalid' || '' }}
+        run: npm run programs
+
       - name: ビルド
         run: npm run build
         env:

@@ -1,0 +1,72 @@
+---
+/**
+ * 制度ごとの公募履歴の一覧。
+ *
+ * 既存の一覧（地域・業種・締切）は「いま募集中の制度」しか扱えない。
+ * 実際に検索されるのは「ものづくり補助金 20次 締切」「持続化補助金 次はいつ」
+ * のような制度名＋回次で、これには過去回の並びが要る。ここがその入口。
+ */
+import Base from "../../layouts/Base.astro";
+import { programs, programDataset, upcomingRounds, unitOf, clip, formatDay } from "../../lib/programs";
+
+const rows = programs.map((p) => ({ p, upcoming: upcomingRounds(p) }));
+const active = rows.filter((r) => r.upcoming.length > 0);
+const past = rows.filter((r) => r.upcoming.length === 0);
+
+const title = `補助金の公募履歴一覧（${programs.length}制度）｜補助金しらべ`;
+const description = `繰り返し公募されている補助金${programs.length}制度について、第何次・第何回がいつ締め切られたかを時系列で整理しています。登録不要・無料。`;
+---
+
+<Base title={title} description={description}>
+  <p class="crumbs"><a href="/">トップ</a> ／ 制度別の公募履歴</p>
+
+  <h1>制度別の公募履歴</h1>
+  <p class="lead">
+    同じ補助金が何度も公募される制度について、<b>第何次・第何回がいつ締め切られたか</b>を時系列で整理しています。
+    公式データ{programDataset.counts.scanned.toLocaleString("ja-JP")}件のうち、回次が3回以上たどれる{programs.length}制度が対象です。
+  </p>
+
+  {active.length > 0 && (
+    <>
+      <h2>締切がまだ先の回がある制度（{active.length}件）</h2>
+      <ul class="card-list">
+        {active.map(({ p, upcoming }) => (
+          <li class="card">
+            <h3><a href={`/program/${p.slug}/`}>{p.name}</a></h3>
+            <ul class="meta">
+              <li>公募 <b>{p.roundCount}{unitOf(p)}</b></li>
+              <li>次の締切 <b>{formatDay(upcoming[0].end)}</b></li>
+              {p.intervalDays && <li>公募間隔の実測 <b>約{p.intervalDays.median}日</b></li>}
+            </ul>
+          </li>
+        ))}
+      </ul>
+    </>
+  )}
+
+  {past.length > 0 && (
+    <>
+      <h2>直近の公募が終了している制度（{past.length}件）</h2>
+      <p class="lead">
+        過去の公募間隔が分かるため、次の公募が告知されたときの目安になります。再開の予定は本サイトでは分かりません。
+      </p>
+      <ul class="card-list">
+        {past.map(({ p }) => (
+          <li class="card is-closed">
+            <h3><a href={`/program/${p.slug}/`}>{clip(p.name, 44)}</a></h3>
+            <ul class="meta">
+              <li>公募 <b>{p.roundCount}{unitOf(p)}</b></li>
+              <li>最後の締切 <b>{formatDay(p.lastDeadline)}</b></li>
+            </ul>
+          </li>
+        ))}
+      </ul>
+    </>
+  )}
+
+  <div class="notice">
+    公募履歴はデジタル庁の公開データに登録された制度名から、年度・実施機関・枠・回次を機械的に読み取って並べたものです。
+    <strong>次回の公募時期は予測していません。</strong>
+    表示しているのは過去の実測値のみで、制度の再開・終了を示すものではありません。
+  </div>
+</Base>

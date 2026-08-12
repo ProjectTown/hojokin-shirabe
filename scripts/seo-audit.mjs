@@ -87,6 +87,37 @@ console.log(`description なし   : ${noDesc.length}件`);
 console.log(`description 120字超: ${overDesc.length}件`);
 console.log(`description 重複   : ${dupD.length}種`);
 
+// 本文量。
+//
+// Googleは2024年3月から Scaled Content Abuse（大量生成コンテンツの悪用）を
+// スパムポリシーに明記しており、独自の価値が薄いページを大量に並べると
+// サイト全体が手動対策の対象になる。ページを機械生成する以上、
+// 「中身が薄いページを1件も公開しない」ことを人手の判断ではなく関門で担保する。
+//
+// 判定はヘッダー・フッターを除いた <main> 内の文字数で行う。
+// 共通部分を含めると、中身が空のページでも1,000字を超えてしまう。
+const mainTextLength = (html) => {
+  const main = (html.match(/<main[^>]*>([\s\S]*?)<\/main>/) ?? [])[1] ?? "";
+  return main
+    .replace(/<(script|style)[\s\S]*?<\/\1>/g, "")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&[a-z]+;/g, " ")
+    .replace(/\s+/g, "")
+    .length;
+};
+const MIN_MAIN_TEXT = 300;
+const thin = indexable
+  .map((p) => ({ url: p.url, n: mainTextLength(p.html) }))
+  .filter((x) => x.n < MIN_MAIN_TEXT)
+  .sort((a, b) => a.n - b.n);
+
+console.log("");
+console.log("=== 本文量（検索掲載ページのみ） ===");
+const lens = indexable.map((p) => mainTextLength(p.html)).sort((a, b) => a - b);
+console.log(`本文 中央値 : ${lens[Math.floor(lens.length / 2)]} 字`);
+console.log(`本文 最小   : ${lens[0]} 字（下限 ${MIN_MAIN_TEXT} 字）`);
+console.log(`下限割れ    : ${thin.length}件 ${thin.slice(0, 5).map((x) => `${x.url}(${x.n})`).join(" ")}`);
+
 // 見出し
 const badH1 = indexable.filter((p) => h1Count(p.html) !== 1);
 console.log("");
@@ -142,6 +173,7 @@ if (badH1.length) fatal.push(`h1が1個でないページ${badH1.length}件`);
 if (dupT.length) fatal.push(`titleが重複${dupT.length}種`);
 if (noDesc.length) fatal.push(`descriptionなし${noDesc.length}件`);
 if (unreachable.length) fatal.push(`トップから到達できない掲載ページ${unreachable.length}件`);
+if (thin.length) fatal.push(`本文が${MIN_MAIN_TEXT}字未満の掲載ページ${thin.length}件`);
 
 console.log("");
 console.log("=== ページ重量（Core Web Vitals の目安） ===");

@@ -1,0 +1,139 @@
+---
+/**
+ * 1つの制度の公募履歴ページ。
+ *
+ * 公式のJグランツも民間ポータルも「いま募集中の1回」しか見せないため、
+ * 「前回はいつ締め切られたのか」「何日おきに公募されているのか」が分からない。
+ * ここでは同じ制度の全回次を1枚の表に並べる。これがこのサイトの独自資産。
+ *
+ * 次回の公募時期は書かない。公開データから読み取れるのは過去の実測値だけで、
+ * 予測を書けば外れたときに利用者の不利益になる。
+ */
+import Base from "../../layouts/Base.astro";
+import { formatYen } from "../../lib/data";
+import {
+  programs,
+  detailIdOf,
+  isUpcoming,
+  upcomingRounds,
+  shortNameOf,
+  formatDay,
+  roundLabel,
+  unitOf,
+  type Program,
+} from "../../lib/programs";
+
+export function getStaticPaths() {
+  return programs.map((p) => ({ params: { slug: p.slug }, props: { program: p } }));
+}
+
+interface Props {
+  program: Program;
+}
+
+const { program } = Astro.props;
+
+// 表は古い順に読む方が「回を重ねている」ことが分かる。
+const rounds = [...program.rounds].sort((a, b) => String(a.end).localeCompare(String(b.end)));
+const upcoming = upcomingRounds(program);
+const frames = [...new Set(rounds.map((r) => r.frame).filter(Boolean))];
+const maxBodies = Math.max(...rounds.map((r) => r.bodies));
+
+const unit = unitOf(program);
+const short = shortNameOf(program);
+const title = `${short}の公募履歴｜補助金しらべ`;
+const description = `${short}の公募${program.roundCount}${unit}分について、受付開始日・締切日・補助上限額を時系列で一覧。過去の公募間隔の実測値も掲載しています。`;
+---
+
+<Base title={title} description={description}>
+  <p class="crumbs">
+    <a href="/">トップ</a> ／ <a href="/program/">制度別の公募履歴</a> ／ 公募履歴
+  </p>
+
+  <h1>{program.name}の公募履歴</h1>
+
+  <p class="lead">
+    この制度は公開データ上 <b>{program.roundCount}{unit}</b> の公募が確認できます。
+    記録しているのは{formatDay(program.firstDeadline)}締切分から{formatDay(program.lastDeadline)}締切分までです。
+  </p>
+
+  {upcoming.length > 0 ? (
+    <p class="callout">
+      締切がまだ先の回が <b>{upcoming.length}件</b> あります。直近の締切は <b>{formatDay(upcoming[0].end)}</b> です。
+    </p>
+  ) : (
+    <p class="notice">
+      公開データ上、締切が先の回はありません。最後の締切は{formatDay(program.lastDeadline)}です。
+      次の公募があるかどうかは公開データからは分かりません。
+    </p>
+  )}
+
+  <h2>公募の記録（{rounds.length}行）</h2>
+  <div class="table-scroll">
+    <table class="rounds">
+      <thead>
+        <tr>
+          <th scope="col">回次</th>
+          {frames.length > 0 && <th scope="col">枠</th>}
+          <th scope="col">受付開始</th>
+          <th scope="col">締切</th>
+          <th scope="col">補助上限額</th>
+          {maxBodies > 1 && <th scope="col">実施機関</th>}
+        </tr>
+      </thead>
+      <tbody>
+        {rounds.map((r) => {
+          const id = detailIdOf(r);
+          const label = roundLabel(r);
+          return (
+            <tr class={isUpcoming(r) ? "is-upcoming" : undefined}>
+              <th scope="row">{id ? <a href={`/s/${id}/`}>{label}</a> : label}</th>
+              {frames.length > 0 && <td>{r.frame ?? "—"}</td>}
+              <td>{r.start ? formatDay(r.start) : "記載なし"}</td>
+              <td>{r.end ? formatDay(r.end) : "記載なし"}</td>
+              <td>{formatYen(r.maxLimit)}</td>
+              {maxBodies > 1 && <td>{r.bodies}件</td>}
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </div>
+
+  {maxBodies > 1 && (
+    <p class="lead">
+      「実施機関」は、同じ回次を実施した団体の数です。都道府県の商工会連合会ごとに公募が分かれる制度があり、
+      公開データ上は別々の登録になっています。内容が同じ回はこの表で1行にまとめています。
+    </p>
+  )}
+
+  {program.intervalDays && (
+    <>
+      <h2>公募の間隔（実測値）</h2>
+      <table class="spec">
+        <tbody>
+          <tr>
+            <th scope="row">締切から次の締切まで</th>
+            <td>中央値 <b>{program.intervalDays.median}日</b>（最短 {program.intervalDays.min}日 / 最長 {program.intervalDays.max}日）</td>
+          </tr>
+          <tr>
+            <th scope="row">測定に使った回数</th>
+            <td>{program.intervalDays.samples}組</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="lead">
+        同じ枠の中で回次が1つ進むまでにかかった日数です。過去にそうだったという記録であり、
+        <strong>次の公募がいつになるかを示すものではありません。</strong>
+      </p>
+    </>
+  )}
+
+  <p><a href="/program/">ほかの制度の公募履歴を見る →</a></p>
+
+  <div class="notice">
+    制度名・日付・上限額はデジタル庁が公開するJグランツのデータをそのまま転記しています。
+    回次と枠は制度名の表記から機械的に読み取ったもので、公式の分類とは異なる場合があります。
+    <strong>申請の可否・締切は必ず各制度の公式ページでご確認ください。</strong>
+  </div>
+</Base>
