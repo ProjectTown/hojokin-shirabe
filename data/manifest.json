@@ -38,8 +38,8 @@
       "collected": 32
     },
     "販路拡大・海外展開をしたい": {
-      "open": 52,
-      "collected": 52
+      "open": 53,
+      "collected": 53
     },
     "イベント・事業運営支援がほしい": {
       "open": 20,
@@ -50,8 +50,8 @@
       "collected": 23
     },
     "資金繰りを改善したい": {
-      "open": 19,
-      "collected": 19
+      "open": 20,
+      "collected": 20
     },
     "安全・防災対策支援がほしい": {
       "open": 38,
@@ -78,8 +78,8 @@
       "collected": 8
     }
   },
-  "totalOpen": 211,
-  "collected": 211,
+  "totalOpen": 212,
+  "collected": 212,
   "pending": 0,
   "ids": [
     "a0WJ200000CDdqyMAD",
@@ -97,8 +97,8 @@
     "a0WJ200000CDYEIMA5",
     "a0WJ200000CDYEHMA5",
     "a0WJ200000CDXFhMAP",
-    "a0WJ200000CDderMAD",
     "a0WJ200000CDXENMA5",
+    "a0WJ200000CDderMAD",
     "a0WJ200000CDdSBMA1",
     "a0WJ200000CDdPBMA1",
     "a0WJ200000CDdRHMA1",
@@ -123,16 +123,16 @@
     "a0WJ200000CDddVMAT",
     "a0WJ200000CDdfVMAT",
     "a0WJ200000CDd3YMAT",
-    "a0WJ200000CDdbJMAT",
     "a0WJ200000CDdJhMAL",
+    "a0WJ200000CDdbJMAT",
     "a0WJ20000087jeOMAQ",
     "a0WJ200000CDKZFMA5",
     "a0WJ200000CDd3OMAT",
     "a0WJ200000CDbPLMA1",
+    "a0WJ200000CDY7KMAX",
     "a0WJ200000CDdPVMA1",
     "a0WJ200000CDdPGMA1",
     "a0WJ200000CDdP1MAL",
-    "a0WJ200000CDY7KMAX",
     "a0WJ200000CDZ2OMAX",
     "a0WJ200000CDZz6MAH",
     "a0WJ200000CDPbMMAX",
@@ -148,17 +148,16 @@
     "a0WJ200000CDYvRMAX",
     "a0WJ200000CDZz2MAH",
     "a0WJ200000CDK76MAH",
-    "a0WJ200000CDdlrMAD",
     "a0WJ200000CDYCnMAP",
     "a0WJ200000CDY1VMAX",
     "a0WJ200000CDXRpMAP",
     "a0WJ200000CDRArMAP",
     "a0WJ200000CDYimMAH",
-    "a0WJ200000CDQEJMA5",
     "a0WJ200000CDY6GMAX",
     "a0WJ2000000qhOQMAY",
     "a0W5h00000UbU66EAF",
     "a0W5h00000GMgXBEA1",
+    "a0WJ200000CDQEJMA5",
     "a0WJ200000CDbyzMAD",
     "a0WJ200000CDXqMMAX",
     "a0WJ200000CDWngMAH",
@@ -168,6 +167,7 @@
     "a0WJ200000CDb8AMAT",
     "a0WJ200000CDb87MAD",
     "a0WJ200000CDb86MAD",
+    "a0WJ200000CDdlrMAD",
     "a0WJ200000CDVkeMAH",
     "a0W2x000007Cos5EAC",
     "a0W2x000004PhCHEA0",
@@ -231,6 +231,7 @@
     "a0WJ200000CDctfMAD",
     "a0WJ200000CDdPLMA1",
     "a0WJ200000CDdPQMA1",
+    "a0WJ200000CDdm6MAD",
     "a0WJ200000CDYh2MAH",
     "a0WJ200000CDYW4MAP",
     "a0WJ200000CDY1kMAH",
@@ -298,5 +299,5 @@
     "maxPerSearch": 100,
     "maxRequests": 1200
   },
-  "updatedAt": "2026-08-12T21:54:34.951Z"
+  "updatedAt": "2026-08-13T21:53:54.571Z"
 }
