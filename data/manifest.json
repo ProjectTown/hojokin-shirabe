@@ -18,44 +18,44 @@
   ],
   "perCategory": {
     "設備整備・IT導入をしたい": {
-      "open": 98,
-      "collected": 98
+      "open": 97,
+      "collected": 97
     },
     "新たな事業を行いたい": {
-      "open": 81,
-      "collected": 81
+      "open": 78,
+      "collected": 78
     },
     "エコ・SDGs活動支援がほしい": {
-      "open": 51,
-      "collected": 51
+      "open": 50,
+      "collected": 50
     },
     "まちづくり・地域振興支援がほしい": {
-      "open": 32,
-      "collected": 32
+      "open": 31,
+      "collected": 31
     },
     "研究開発・実証事業を行いたい": {
-      "open": 35,
-      "collected": 35
+      "open": 33,
+      "collected": 33
     },
     "販路拡大・海外展開をしたい": {
-      "open": 58,
-      "collected": 58
+      "open": 56,
+      "collected": 56
     },
     "イベント・事業運営支援がほしい": {
       "open": 23,
       "collected": 23
     },
     "雇用・職場環境を改善したい": {
-      "open": 30,
-      "collected": 30
+      "open": 29,
+      "collected": 29
     },
     "資金繰りを改善したい": {
       "open": 22,
       "collected": 22
     },
     "安全・防災対策支援がほしい": {
-      "open": 43,
-      "collected": 43
+      "open": 42,
+      "collected": 42
     },
     "人材育成を行いたい": {
       "open": 15,
@@ -70,24 +70,24 @@
       "collected": 9
     },
     "スポーツ・文化支援がほしい": {
-      "open": 8,
-      "collected": 8
+      "open": 7,
+      "collected": 7
     },
     "教育・子育て・少子化支援がほしい": {
       "open": 10,
       "collected": 10
     }
   },
-  "totalOpen": 223,
-  "collected": 223,
+  "totalOpen": 220,
+  "collected": 220,
   "pending": 0,
   "ids": [
     "a0WJ200000CDdtHMAT",
     "a0WJ200000CDdqyMAD",
     "a0WJ200000CDZzQMAX",
     "a0WJ200000CDYDcMAP",
-    "a0WJ200000CDYzQMAX",
     "a0WJ200000CDZ04MAH",
+    "a0WJ200000CDYzQMAX",
     "a0WJ200000CDaotMAD",
     "a0WJ200000CDY6vMAH",
     "a0WJ200000CDHQZMA5",
@@ -100,7 +100,6 @@
     "a0WJ200000CDXFhMAP",
     "a0WJ200000CDXENMA5",
     "a0WJ200000CDderMAD",
-    "a0WJ200000CDe7xMAD",
     "a0WJ200000CDdSBMA1",
     "a0WJ200000CDdPBMA1",
     "a0WJ200000CDdRHMA1",
@@ -111,6 +110,7 @@
     "a0WJ200000CDYzVMAX",
     "a0WJ200000CDZ1GMAX",
     "a0WJ200000CDY1fMAH",
+    "a0WJ200000CDe7xMAD",
     "a0WJ200000CDYUSMA5",
     "a0WJ200000CDdAfMAL",
     "a0WJ200000CDdAkMAL",
@@ -133,8 +133,8 @@
     "a0WJ200000CDdfpMAD",
     "a0WJ200000CDdJhMAL",
     "a0WJ200000CDd3YMAT",
-    "a0WJ20000087jeOMAQ",
     "a0WJ200000CDbPLMA1",
+    "a0WJ20000087jeOMAQ",
     "a0WJ200000CDKZFMA5",
     "a0WJ200000CDd3OMAT",
     "a0WJ200000CDY7KMAX",
@@ -144,10 +144,10 @@
     "a0WJ200000CDZ2OMAX",
     "a0WJ200000CDPbMMAX",
     "a0WJ200000CDbpCMAT",
+    "a0WJ200000CDYUXMA5",
     "a0WJ200000CDdPVMA1",
     "a0WJ200000CDdPGMA1",
     "a0WJ200000CDdP1MAL",
-    "a0WJ200000CDYUXMA5",
     "a0WJ200000CDYaFMAX",
     "a0WJ200000CDa1bMAD",
     "a0WJ200000CDZDHMA5",
@@ -158,18 +158,17 @@
     "a0WJ200000CDK76MAH",
     "a0WJ200000CDYCnMAP",
     "a0WJ200000CDY1VMAX",
-    "a0WJ200000CDa1gMAD",
     "a0WJ200000CDXRpMAP",
     "a0WJ200000CDRArMAP",
-    "a0WJ200000CDYimMAH",
     "a0WJ2000000qhOQMAY",
     "a0W5h00000UbU66EAF",
     "a0W5h00000GMgXBEA1",
+    "a0WJ200000CDYimMAH",
     "a0WJ200000CDY6GMAX",
     "a0WJ200000CDXqMMAX",
     "a0WJ200000CDQEJMA5",
-    "a0WJ200000CDbyzMAD",
     "a0WJ200000CDX4vMAH",
+    "a0WJ200000CDbyzMAD",
     "a0WJ200000CDTzMMAX",
     "a0WJ200000CDWngMAH",
     "a0WJ200000CDb6JMAT",
@@ -191,7 +190,6 @@
     "a0WJ200000CDXFiMAP",
     "a0WJ200000CDXFfMAP",
     "a0WJ200000CDXK4MAP",
-    "a0WJ200000CDdNjMAL",
     "a0WJ200000CDYsRMAX",
     "a0WJ200000CDYvQMAX",
     "a0WJ200000CDdRmMAL",
@@ -216,7 +214,6 @@
     "a0WJ200000CDZXbMAP",
     "a0WJ200000CDacWMAT",
     "a0WJ200000CDY1GMAX",
-    "a0WJ200000CDYUPMA5",
     "a0WJ200000CDJWIMA5",
     "a0WJ200000CDYsSMAX",
     "a0WJ200000CDYBxMAP",
@@ -244,8 +241,8 @@
     "a0WJ200000CDYh2MAH",
     "a0WJ200000CDYW4MAP",
     "a0WJ200000CDY1kMAH",
-    "a0WJ200000CDYmSMAX",
     "a0WJ200000CDXk8MAH",
+    "a0WJ200000CDYmSMAX",
     "a0WJ200000CDcQOMA1",
     "a0WJ200000CDdicMAD",
     "a0WJ200000CDdrXMAT",
@@ -310,5 +307,5 @@
     "maxPerSearch": 100,
     "maxRequests": 1200
   },
-  "updatedAt": "2026-08-19T21:32:08.780Z"
+  "updatedAt": "2026-08-20T21:34:35.602Z"
 }
