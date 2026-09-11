@@ -18,7 +18,7 @@
   ],
   "perCategory": {
     "設備整備・IT導入をしたい": {
-      "open": 102,
+      "open": 104,
       "collected": 100
     },
     "新たな事業を行いたい": {
@@ -38,20 +38,20 @@
       "collected": 28
     },
     "販路拡大・海外展開をしたい": {
-      "open": 50,
-      "collected": 50
+      "open": 51,
+      "collected": 51
     },
     "イベント・事業運営支援がほしい": {
       "open": 21,
       "collected": 21
     },
     "雇用・職場環境を改善したい": {
-      "open": 25,
-      "collected": 25
+      "open": 26,
+      "collected": 26
     },
     "資金繰りを改善したい": {
-      "open": 18,
-      "collected": 18
+      "open": 17,
+      "collected": 17
     },
     "安全・防災対策支援がほしい": {
       "open": 42,
@@ -83,21 +83,22 @@
   "pending": 0,
   "ids": [
     "a0WJ200000CDeXgMAL",
+    "a0WJ200000CDY9gMAH",
     "a0WJ200000CDbHxMAL",
     "a0WJ200000CDKZFMA5",
     "a0WJ200000CDUhfMAH",
     "a0WJ200000CDZzQMAX",
+    "a0WJ200000CDZ2OMAX",
     "a0WJ200000CDYkHMAX",
     "a0WJ200000CDYiwMAH",
     "a0WJ200000CDYkCMAX",
+    "a0WJ200000CDZ04MAH",
     "a0WJ200000CDYk0MAH",
     "a0WJ200000CDYjRMAX",
-    "a0WJ200000CDZ04MAH",
     "a0WJ200000CDdtHMAT",
     "a0WJ200000CDdqyMAD",
-    "a0WJ200000CDY9gMAH",
-    "a0WJ200000CDYzQMAX",
     "a0WJ200000CDaotMAD",
+    "a0WJ200000CDYzQMAX",
     "a0WJ200000CDYC7MAP",
     "a0WJ200000CDY6vMAH",
     "a0WJ200000CDHQZMA5",
@@ -114,6 +115,7 @@
     "a0WJ200000CDdmVMAT",
     "a0WJ200000CDderMAD",
     "a0WJ200000CDdPBMA1",
+    "a0WfQ000003BpWvUAK",
     "a0WJ200000CDczMMAT",
     "a0WJ200000CDczHMAT",
     "a0WJ200000CDYr0MAH",
@@ -125,6 +127,7 @@
     "a0WJ200000CDeNwMAL",
     "a0WJ200000CDeO1MAL",
     "a0WJ200000CDeNSMA1",
+    "a0WJ200000CDY6tMAH",
     "a0WJ200000CDeS9MAL",
     "a0WJ200000CDeTAMA1",
     "a0WJ200000CDbpCMAT",
@@ -150,17 +153,16 @@
     "a0WJ200000CDNDnMAP",
     "a0WJ200000CDYlTMAX",
     "a0WJ200000CDdtMMAT",
-    "a0WJ200000CDUheMAH",
     "a0WJ200000CDbPLMA1",
-    "a0WJ200000CDd3YMAT",
+    "a0WJ200000CDUheMAH",
     "a0WJ200000CDY7KMAX",
+    "a0WJ200000CDd3YMAT",
     "a0WJ200000CDZz6MAH",
     "a0WJ200000CDYvPMAX",
     "a0WJ200000CDdfpMAD",
     "a0WJ200000CDd3OMAT",
     "a0WJ200000CDYUXMA5",
     "a0WJ20000087jeOMAQ",
-    "a0WJ200000CDZ2OMAX",
     "a0WJ200000CDYaFMAX",
     "a0WJ200000CDa1bMAD",
     "a0WJ200000CDYq2MAH",
@@ -169,8 +171,8 @@
     "a0WJ200000CDZz2MAH",
     "a0WJ200000CDZDHMA5",
     "a0WJ200000CDYCnMAP",
-    "a0WJ200000CDPyeMAH",
     "a0WJ200000CDY1VMAX",
+    "a0WJ200000CDPyeMAH",
     "a0WJ200000CDXRpMAP",
     "a0WJ200000CDRArMAP",
     "a0WJ2000000qhOQMAY",
@@ -180,11 +182,11 @@
     "a0WJ200000CDY6GMAX",
     "a0WJ200000CDXqMMAX",
     "a0WJ200000CDX4vMAH",
-    "a0WJ200000CDTzMMAX",
-    "a0WJ200000CDVkeMAH",
     "a0WJ200000CDe4JMAT",
+    "a0WJ200000CDZi6MAH",
     "a0WJ200000CDdMCMA1",
     "a0WJ200000CDXmVMAX",
+    "a0WJ200000CDY2TMAX",
     "a0WJ200000CDe3zMAD",
     "a0WJ200000CDYW7MAP",
     "a0WJ200000CDYW6MAP",
@@ -203,11 +205,9 @@
     "a0WJ200000CDdRmMAL",
     "a0WJ200000CDeQhMAL",
     "a0WJ200000CDddZMAT",
-    "a0WJ200000CDXuqMAH",
     "a0WJ200000CDa1RMAT",
     "a0WJ200000CDdL9MAL",
     "a0WJ200000CDbz0MAD",
-    "a0WJ200000CDY2TMAX",
     "a0WJ200000CDYUQMA5",
     "a0WJ200000CDYvXMAX",
     "a0WJ200000CDY4mMAH",
@@ -218,6 +218,7 @@
     "a0WJ200000CDMSsMAP",
     "a0WJ200000CDZXbMAP",
     "a0WJ200000CDY1GMAX",
+    "a0WJ200000CDVkeMAH",
     "a0WJ200000CDacWMAT",
     "a0W2x000007Cos5EAC",
     "a0WJ200000CDJWIMA5",
@@ -243,6 +244,7 @@
     "a0WJ200000CDYW4MAP",
     "a0WJ200000CDY1kMAH",
     "a0WJ200000CDXk8MAH",
+    "a0W2x000007CStEEAW",
     "a0WfQ000003Dh0bUAC",
     "a0WfQ000003DgHRUA0",
     "a0WfQ000003Cy0HUAS",
@@ -250,7 +252,6 @@
     "a0WJ200000CDYmSMAX",
     "a0WJ200000CDdicMAD",
     "a0WJ200000CDY5VMAX",
-    "a0W2x000007CStEEAW",
     "a0W2x000007CStOEAW",
     "a0W2x000005iqyXEAQ",
     "a0WJ200000CDeTtMAL",
@@ -265,7 +266,6 @@
     "a0WJ200000CDYbNMAX",
     "a0WJ200000CDXk9MAH",
     "a0WfQ000003BzWHUA0",
-    "a0WJ200000CDdNtMAL",
     "a0WJ200000CDYffMAH",
     "a0WJ200000CDYW1MAP",
     "a0W2x000007CrSAEA0",
@@ -306,5 +306,5 @@
     "maxPerSearch": 100,
     "maxRequests": 1200
   },
-  "updatedAt": "2026-09-10T23:03:13.828Z"
+  "updatedAt": "2026-09-11T23:09:10.245Z"
 }
