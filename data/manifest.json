@@ -18,52 +18,52 @@
   ],
   "perCategory": {
     "設備整備・IT導入をしたい": {
-      "open": 106,
-      "collected": 100
+      "open": 91,
+      "collected": 91
     },
     "新たな事業を行いたい": {
-      "open": 68,
-      "collected": 68
+      "open": 64,
+      "collected": 64
     },
     "エコ・SDGs活動支援がほしい": {
-      "open": 54,
-      "collected": 54
+      "open": 46,
+      "collected": 46
     },
     "まちづくり・地域振興支援がほしい": {
-      "open": 28,
-      "collected": 28
+      "open": 24,
+      "collected": 24
     },
     "研究開発・実証事業を行いたい": {
-      "open": 22,
-      "collected": 22
+      "open": 21,
+      "collected": 21
     },
     "販路拡大・海外展開をしたい": {
-      "open": 50,
-      "collected": 50
+      "open": 44,
+      "collected": 44
     },
     "イベント・事業運営支援がほしい": {
-      "open": 19,
-      "collected": 19
+      "open": 18,
+      "collected": 18
     },
     "雇用・職場環境を改善したい": {
-      "open": 36,
-      "collected": 36
+      "open": 34,
+      "collected": 34
     },
     "資金繰りを改善したい": {
       "open": 17,
       "collected": 17
     },
     "安全・防災対策支援がほしい": {
-      "open": 40,
-      "collected": 40
+      "open": 37,
+      "collected": 37
     },
     "人材育成を行いたい": {
       "open": 10,
       "collected": 10
     },
     "災害（自然災害、感染症等）支援がほしい": {
-      "open": 18,
-      "collected": 18
+      "open": 14,
+      "collected": 14
     },
     "事業を引き継ぎたい": {
       "open": 5,
@@ -74,33 +74,33 @@
       "collected": 3
     },
     "教育・子育て・少子化支援がほしい": {
-      "open": 6,
-      "collected": 6
+      "open": 5,
+      "collected": 5
     }
   },
-  "totalOpen": 227,
-  "collected": 227,
+  "totalOpen": 206,
+  "collected": 206,
   "pending": 0,
   "ids": [
     "a0WfQ000003ZH5uUAG",
     "a0WJ200000CDY9gMAH",
     "a0WJ200000CDeUgMAL",
-    "a0WJ200000CDbyjMAD",
     "a0W5h00000ZueXcEAJ",
     "a0WJ200000CDdtHMAT",
+    "a0WJ200000CDbyjMAD",
     "a0WfQ000003ENsfUAG",
     "a0WJ200000CDYC7MAP",
-    "a0WJ200000CDY6vMAH",
     "a0WJ200000CDUhfMAH",
+    "a0WJ200000CDdjfMAD",
     "a0WfQ000003EZsDUAW",
     "a0WJ200000CDbHxMAL",
     "a0WfQ000003cYWnUAM",
-    "a0WJ200000CDdjfMAD",
-    "a0WJ200000CDKZFMA5",
     "a0WJ200000CDdnJMAT",
+    "a0WJ200000CDKZFMA5",
     "a0WJ200000CDVm7MAH",
-    "a0WJ200000CDWQzMAP",
+    "a0WfQ000003CWvFUAW",
     "a0WJ200000CDZzQMAX",
+    "a0WJ200000CDZ2OMAX",
     "a0WJ200000CDZ04MAH",
     "a0WJ200000CDRArMAP",
     "a0WJ200000CDaotMAD",
@@ -109,29 +109,23 @@
     "a0WJ200000CDYfxMAH",
     "a0WJ200000CDYfwMAH",
     "a0WJ200000CDYUlMAP",
-    "a0WJ200000CDWQkMAP",
-    "a0WJ200000CDYEIMA5",
     "a0WJ200000CDXFhMAP",
     "a0WJ200000CDXENMA5",
+    "a0WJ200000CDWQkMAP",
     "a0WfQ000003I9xZUAS",
-    "a0WJ200000CDZ2OMAX",
     "a0WJ200000CDeZuMAL",
-    "a0WfQ000003CWvFUAW",
     "a0WJ200000CDVu7MAH",
-    "a0WfQ000003MWE2UAO",
-    "a0WJ200000CDdRHMA1",
-    "a0WJ200000CDbpvMAD",
-    "a0WJ200000CDW2EMAX",
     "a0WJ200000CDderMAD",
-    "a0WJ200000CDUheMAH",
     "a0WJ200000CDdPBMA1",
+    "a0WfQ000003MWE2UAO",
     "a0WJ200000CDczMMAT",
     "a0WJ200000CDczHMAT",
-    "a0WfQ000003IBL3UAO",
-    "a0WJ200000CDYr0MAH",
+    "a0WJ200000CDW2EMAX",
     "a0WJ200000CDYzVMAX",
     "a0WJ200000CDZ1GMAX",
+    "a0WJ200000CDUheMAH",
     "a0WJ200000CDY1fMAH",
+    "a0WfQ000003IBL3UAO",
     "a0W2x000007Cos5EAC",
     "a0WfQ000003EVJxUAO",
     "a0WfQ000003CVHdUAO",
@@ -141,23 +135,15 @@
     "a0WJ200000CDXjxMAH",
     "a0WfQ000003BpWvUAK",
     "a0WJ200000CDYimMAH",
-    "a0WJ200000CDY6tMAH",
     "a0WJ200000CDeQmMAL",
     "a0WJ200000CDeS9MAL",
     "a0WJ200000CDbpCMAT",
     "a0WJ200000CDddUMAT",
     "a0WJ200000CDddbMAD",
     "a0WJ200000CDddVMAT",
-    "a0WJ200000CDeTAMA1",
     "a0WJ200000CDddaMAD",
+    "a0WJ200000CDeTAMA1",
     "a0WJ200000CDNDnMAP",
-    "a0WJ200000CDdu0MAD",
-    "a0WJ200000CDdtvMAD",
-    "a0WJ200000CDdtlMAD",
-    "a0WJ200000CDdtgMAD",
-    "a0WJ200000CDdtbMAD",
-    "a0WJ200000CDdtRMAT",
-    "a0WJ200000CDaT7MAL",
     "a0WJ200000CDbPLMA1",
     "a0WJ200000CDYvPMAX",
     "a0WJ200000CDZz6MAH",
@@ -173,16 +159,20 @@
     "a0WJ200000CDK76MAH",
     "a0WJ200000CDYvRMAX",
     "a0WJ20000087jeOMAQ",
-    "a0WJ200000CDeSJMA1",
     "a0WJ200000CDZz2MAH",
     "a0WJ200000CDYCnMAP",
     "a0WJ200000CDY1VMAX",
+    "a0WJ200000CDeSJMA1",
     "a0WJ200000CDZDHMA5",
     "a0WJ200000CDPyeMAH",
     "a0WJ200000CDXRpMAP",
     "a0WJ2000000qhOQMAY",
     "a0W5h00000UbU66EAF",
-    "a0WJ200000CDZi6MAH",
+    "a0W5h00000GMgXBEA1",
+    "a0WJ200000CDY6GMAX",
+    "a0WJ200000CDXqMMAX",
+    "a0WJ200000CDX4vMAH",
+    "a0WJ200000CDVkeMAH",
     "a0WJ200000CDe4JMAT",
     "a0WJ200000CDdMCMA1",
     "a0WJ200000CDXmVMAX",
@@ -194,11 +184,9 @@
     "a0WJ200000CDXFiMAP",
     "a0WJ200000CDXFfMAP",
     "a0WJ200000CDXK4MAP",
-    "a0WJ200000CDbq0MAD",
     "a0WJ200000CDYsRMAX",
     "a0WJ200000CDYvQMAX",
     "a0WJ200000CDdRmMAL",
-    "a0WJ200000CDeF3MAL",
     "a0WJ200000CDacWMAT",
     "a0WJ200000CDeXvMAL",
     "a0WJ200000CDddZMAT",
@@ -214,13 +202,8 @@
     "a0WJ200000CDYTvMAP",
     "a0WJ200000CDMQvMAP",
     "a0WJ200000CDMSsMAP",
-    "a0W5h00000GMgXBEA1",
     "a0WJ200000CDZXbMAP",
-    "a0WJ200000CDY6GMAX",
-    "a0WJ200000CDXqMMAX",
     "a0WJ200000CDY1GMAX",
-    "a0WJ200000CDX4vMAH",
-    "a0WJ200000CDVkeMAH",
     "a0WJ200000CDJWIMA5",
     "a0WJ200000CDYsSMAX",
     "a0WJ200000CDYBxMAP",
@@ -232,10 +215,8 @@
     "a0WJ200000CDddXMAT",
     "a0WJ200000CDZDCMA5",
     "a0WJ200000CDXH1MAP",
-    "a0WJ200000CDdjzMAD",
     "a0WJ200000CDYUkMAP",
     "a0WJ200000CDY24MAH",
-    "a0WJ200000CDdgEMAT",
     "a0WJ200000CDYW3MAP",
     "a0WJ200000CDYW2MAP",
     "a0WJ200000CDY6KMAX",
@@ -248,10 +229,7 @@
     "a0WJ200000CDYtoMAH",
     "a0W2x000007CStEEAW",
     "a0WfQ000003a9flUAA",
-    "a0WfQ000003Dh0bUAC",
-    "a0WJ200000CDcQOMA1",
     "a0WfQ000003DgHRUA0",
-    "a0WfQ000003Cy0HUAS",
     "a0WJ200000CDdicMAD",
     "a0W2x000007CStOEAW",
     "a0W2x000005iqyXEAQ",
@@ -268,6 +246,7 @@
     "a0WJ200000CDdABMA1",
     "a0WJ200000CDY72MAH",
     "a0WJ200000CDYbNMAX",
+    "a0WfQ000003aZqLUAU",
     "a0WJ200000CDYEGMA5",
     "a0WJ200000CDXk9MAH",
     "a0WJ200000CDdNtMAL",
@@ -281,8 +260,8 @@
     "a0WJ200000CDY8DMAX",
     "a0WJ200000CDYvnMAH",
     "a0WJ200000CDYviMAH",
-    "a0WJ200000CDYSUMA5",
     "a0WJ200000CDYSKMA5",
+    "a0WJ200000CDYSUMA5",
     "a0WJ200000CDYurMAH",
     "a0WJ200000CDYumMAH",
     "a0WJ200000CDYuhMAH",
@@ -314,5 +293,5 @@
     "maxPerSearch": 100,
     "maxRequests": 1200
   },
-  "updatedAt": "2026-09-30T00:16:39.601Z"
+  "updatedAt": "2026-10-01T00:27:40.850Z"
 }
