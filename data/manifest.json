@@ -18,36 +18,36 @@
   ],
   "perCategory": {
     "設備整備・IT導入をしたい": {
-      "open": 91,
-      "collected": 91
+      "open": 90,
+      "collected": 90
     },
     "新たな事業を行いたい": {
-      "open": 64,
-      "collected": 64
+      "open": 66,
+      "collected": 66
     },
     "エコ・SDGs活動支援がほしい": {
-      "open": 46,
-      "collected": 46
+      "open": 48,
+      "collected": 48
     },
     "まちづくり・地域振興支援がほしい": {
       "open": 24,
       "collected": 24
     },
     "研究開発・実証事業を行いたい": {
-      "open": 21,
-      "collected": 21
+      "open": 23,
+      "collected": 23
     },
     "販路拡大・海外展開をしたい": {
-      "open": 44,
-      "collected": 44
+      "open": 45,
+      "collected": 45
     },
     "イベント・事業運営支援がほしい": {
       "open": 18,
       "collected": 18
     },
     "雇用・職場環境を改善したい": {
-      "open": 34,
-      "collected": 34
+      "open": 31,
+      "collected": 31
     },
     "資金繰りを改善したい": {
       "open": 17,
@@ -78,63 +78,62 @@
       "collected": 5
     }
   },
-  "totalOpen": 206,
-  "collected": 206,
+  "totalOpen": 205,
+  "collected": 205,
   "pending": 0,
   "ids": [
     "a0WfQ000003ZH5uUAG",
     "a0WJ200000CDY9gMAH",
+    "a0WfQ000003JPtqUAG",
     "a0WJ200000CDeUgMAL",
+    "a0WfQ000003N8hVUAS",
     "a0W5h00000ZueXcEAJ",
     "a0WJ200000CDdtHMAT",
     "a0WJ200000CDbyjMAD",
-    "a0WfQ000003ENsfUAG",
     "a0WJ200000CDYC7MAP",
+    "a0WfQ000003ENsfUAG",
     "a0WJ200000CDUhfMAH",
-    "a0WJ200000CDdjfMAD",
-    "a0WfQ000003EZsDUAW",
     "a0WJ200000CDbHxMAL",
+    "a0WfQ000003EZsDUAW",
+    "a0WJ200000CDdjfMAD",
     "a0WfQ000003cYWnUAM",
     "a0WJ200000CDdnJMAT",
     "a0WJ200000CDKZFMA5",
-    "a0WJ200000CDVm7MAH",
     "a0WfQ000003CWvFUAW",
+    "a0WJ200000CDVm7MAH",
     "a0WJ200000CDZzQMAX",
-    "a0WJ200000CDZ2OMAX",
     "a0WJ200000CDZ04MAH",
+    "a0WJ200000CDZ2OMAX",
     "a0WJ200000CDRArMAP",
     "a0WJ200000CDaotMAD",
     "a0WJ200000CDHQZMA5",
-    "a0WJ200000CDXjzMAH",
     "a0WJ200000CDYfxMAH",
     "a0WJ200000CDYfwMAH",
     "a0WJ200000CDYUlMAP",
     "a0WJ200000CDXFhMAP",
+    "a0WJ200000CDUheMAH",
     "a0WJ200000CDXENMA5",
-    "a0WJ200000CDWQkMAP",
+    "a0WJ200000CDXjzMAH",
     "a0WfQ000003I9xZUAS",
     "a0WJ200000CDeZuMAL",
     "a0WJ200000CDVu7MAH",
     "a0WJ200000CDderMAD",
     "a0WJ200000CDdPBMA1",
-    "a0WfQ000003MWE2UAO",
     "a0WJ200000CDczMMAT",
     "a0WJ200000CDczHMAT",
-    "a0WJ200000CDW2EMAX",
     "a0WJ200000CDYzVMAX",
     "a0WJ200000CDZ1GMAX",
-    "a0WJ200000CDUheMAH",
     "a0WJ200000CDY1fMAH",
+    "a0WfQ000003MWE2UAO",
     "a0WfQ000003IBL3UAO",
     "a0W2x000007Cos5EAC",
     "a0WfQ000003EVJxUAO",
     "a0WfQ000003CVHdUAO",
-    "a0WfQ000003DRDZUA4",
     "a0WJ200000CDXjwMAH",
+    "a0WJ200000CDYimMAH",
     "a0WJ200000CDXjyMAH",
     "a0WJ200000CDXjxMAH",
     "a0WfQ000003BpWvUAK",
-    "a0WJ200000CDYimMAH",
     "a0WJ200000CDeQmMAL",
     "a0WJ200000CDeS9MAL",
     "a0WJ200000CDbpCMAT",
@@ -155,12 +154,12 @@
     "a0WJ200000CDYq2MAH",
     "a0WJ200000CDYaFMAX",
     "a0WJ200000CDa1bMAD",
-    "a0WJ200000CDdfpMAD",
     "a0WJ200000CDK76MAH",
+    "a0WJ200000CDdfpMAD",
     "a0WJ200000CDYvRMAX",
     "a0WJ20000087jeOMAQ",
-    "a0WJ200000CDZz2MAH",
     "a0WJ200000CDYCnMAP",
+    "a0WJ200000CDZz2MAH",
     "a0WJ200000CDY1VMAX",
     "a0WJ200000CDeSJMA1",
     "a0WJ200000CDZDHMA5",
@@ -192,12 +191,12 @@
     "a0WJ200000CDddZMAT",
     "a0WJ200000CDa1RMAT",
     "a0WJ200000CDbz0MAD",
-    "a0WJ200000CDYUPMA5",
-    "a0WJ200000CDdL9MAL",
     "a0WJ200000CDY4mMAH",
+    "a0WJ200000CDdL9MAL",
     "a0WJ200000CDY5GMAX",
     "a0WJ200000CDYvXMAX",
     "a0WJ200000CDYUQMA5",
+    "a0WJ200000CDYUPMA5",
     "a0WJ200000CDY6uMAH",
     "a0WJ200000CDYTvMAP",
     "a0WJ200000CDMQvMAP",
@@ -264,8 +263,8 @@
     "a0WJ200000CDYSUMA5",
     "a0WJ200000CDYurMAH",
     "a0WJ200000CDYumMAH",
-    "a0WJ200000CDYuhMAH",
     "a0WJ200000CDYucMAH",
+    "a0WJ200000CDYuhMAH",
     "a0WJ200000CDYuSMAX",
     "a0WJ200000CDYu3MAH",
     "a0WJ200000CDYuIMAX",
@@ -293,5 +292,5 @@
     "maxPerSearch": 100,
     "maxRequests": 1200
   },
-  "updatedAt": "2026-10-01T00:27:40.850Z"
+  "updatedAt": "2026-10-02T00:38:14.170Z"
 }
