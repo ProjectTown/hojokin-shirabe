@@ -22,24 +22,24 @@
       "collected": 89
     },
     "新たな事業を行いたい": {
-      "open": 66,
-      "collected": 66
+      "open": 65,
+      "collected": 65
     },
     "エコ・SDGs活動支援がほしい": {
-      "open": 47,
-      "collected": 47
+      "open": 48,
+      "collected": 48
     },
     "まちづくり・地域振興支援がほしい": {
-      "open": 24,
-      "collected": 24
+      "open": 25,
+      "collected": 25
     },
     "研究開発・実証事業を行いたい": {
       "open": 23,
       "collected": 23
     },
     "販路拡大・海外展開をしたい": {
-      "open": 45,
-      "collected": 45
+      "open": 43,
+      "collected": 43
     },
     "イベント・事業運営支援がほしい": {
       "open": 18,
@@ -54,8 +54,8 @@
       "collected": 16
     },
     "安全・防災対策支援がほしい": {
-      "open": 35,
-      "collected": 35
+      "open": 36,
+      "collected": 36
     },
     "人材育成を行いたい": {
       "open": 10,
@@ -78,42 +78,42 @@
       "collected": 5
     }
   },
-  "totalOpen": 210,
-  "collected": 210,
+  "totalOpen": 209,
+  "collected": 209,
   "pending": 0,
   "ids": [
     "a0WfQ000003ZH5uUAG",
     "a0WJ200000CDeUgMAL",
     "a0WJ200000CDY9gMAH",
-    "a0WfQ000003N8hVUAS",
     "a0WfQ000003ENsfUAG",
     "a0W5h00000ZueXcEAJ",
     "a0WJ200000CDdtHMAT",
-    "a0WfQ000003JPtqUAG",
+    "a0WfQ000003N8hVUAS",
     "a0WJ200000CDYC7MAP",
+    "a0WfQ000003JPtqUAG",
     "a0WJ200000CDbyjMAD",
     "a0WJ200000CDUhfMAH",
+    "a0WfQ000003cAFxUAM",
     "a0WJ200000CDbHxMAL",
     "a0WfQ000003EZsDUAW",
     "a0WJ200000CDZzQMAX",
-    "a0WfQ000003cYWnUAM",
     "a0WJ200000CDdnJMAT",
-    "a0WJ200000CDKZFMA5",
     "a0WJ200000CDZ04MAH",
-    "a0WJ200000CDVm7MAH",
-    "a0WfQ000003CWvFUAW",
-    "a0WfQ000003IBL3UAO",
-    "a0WJ200000CDZ2OMAX",
+    "a0WJ200000CDKZFMA5",
     "a0WJ200000CDaotMAD",
+    "a0WJ200000CDZ2OMAX",
+    "a0WJ200000CDVm7MAH",
+    "a0WfQ000003IBL3UAO",
     "a0WJ200000CDHQZMA5",
-    "a0WfQ000003MWE2UAO",
+    "a0WfQ000003CWvFUAW",
     "a0WJ200000CDYfxMAH",
     "a0WJ200000CDYfwMAH",
     "a0WJ200000CDYUlMAP",
-    "a0WJ200000CDUheMAH",
     "a0WJ200000CDXFhMAP",
-    "a0WJ200000CDRArMAP",
     "a0WJ200000CDXENMA5",
+    "a0WJ200000CDRArMAP",
+    "a0WfQ000003MWE2UAO",
+    "a0WJ200000CDUheMAH",
     "a0WJ200000CDXjzMAH",
     "a0WfQ000003I9xZUAS",
     "a0WJ200000CDVu7MAH",
@@ -124,9 +124,9 @@
     "a0WJ200000CDYzVMAX",
     "a0WJ200000CDZ1GMAX",
     "a0WJ200000CDY1fMAH",
-    "a0WJ200000CDdjfMAD",
     "a0WJ200000CDeZuMAL",
     "a0W2x000007Cos5EAC",
+    "a0WJ200000CDdjfMAD",
     "a0WfQ000003EVJxUAO",
     "a0WfQ000003CVHdUAO",
     "a0WfQ000003BpWvUAK",
@@ -150,8 +150,8 @@
     "a0WJ200000CDYUXMA5",
     "a0WJ200000CDd3YMAT",
     "a0WJ200000CDd3OMAT",
-    "a0WJ200000CDdtMMAT",
     "a0WJ200000CDYq2MAH",
+    "a0WJ200000CDdtMMAT",
     "a0WJ200000CDYaFMAX",
     "a0WJ200000CDa1bMAD",
     "a0WJ200000CDK76MAH",
@@ -232,7 +232,6 @@
     "a0W2x000007CStOEAW",
     "a0W2x000005iqyXEAQ",
     "a0WfQ000003I7R7UAK",
-    "a0WfQ000003I7irUAC",
     "a0WfQ000003I7vlUAC",
     "a0WJ200000CDeTtMAL",
     "a0WJ200000CDQuHMAX",
@@ -257,15 +256,15 @@
     "a0WJ200000CDY8DMAX",
     "a0WJ200000CDYvnMAH",
     "a0WJ200000CDYviMAH",
-    "a0WJ200000CDYSUMA5",
     "a0WJ200000CDYSKMA5",
+    "a0WJ200000CDYSUMA5",
     "a0WJ200000CDYurMAH",
     "a0WJ200000CDYumMAH",
-    "a0WJ200000CDYucMAH",
     "a0WJ200000CDYuhMAH",
+    "a0WJ200000CDYucMAH",
     "a0WJ200000CDYuSMAX",
-    "a0WJ200000CDYu3MAH",
     "a0WJ200000CDYuIMAX",
+    "a0WJ200000CDYu3MAH",
     "a0WJ200000CDY96MAH",
     "a0WJ200000CDY9BMAX",
     "a0WJ200000CDY91MAH",
@@ -297,5 +296,5 @@
     "maxPerSearch": 100,
     "maxRequests": 1200
   },
-  "updatedAt": "2026-10-04T23:54:54.398Z"
+  "updatedAt": "2026-10-06T01:42:57.219Z"
 }
