@@ -22,12 +22,12 @@
       "collected": 87
     },
     "新たな事業を行いたい": {
-      "open": 64,
-      "collected": 64
+      "open": 63,
+      "collected": 63
     },
     "エコ・SDGs活動支援がほしい": {
-      "open": 47,
-      "collected": 47
+      "open": 46,
+      "collected": 46
     },
     "まちづくり・地域振興支援がほしい": {
       "open": 22,
@@ -46,8 +46,8 @@
       "collected": 23
     },
     "雇用・職場環境を改善したい": {
-      "open": 34,
-      "collected": 34
+      "open": 35,
+      "collected": 35
     },
     "資金繰りを改善したい": {
       "open": 15,
@@ -58,8 +58,8 @@
       "collected": 38
     },
     "人材育成を行いたい": {
-      "open": 12,
-      "collected": 12
+      "open": 13,
+      "collected": 13
     },
     "災害（自然災害、感染症等）支援がほしい": {
       "open": 15,
@@ -78,8 +78,8 @@
       "collected": 6
     }
   },
-  "totalOpen": 217,
-  "collected": 217,
+  "totalOpen": 218,
+  "collected": 218,
   "pending": 0,
   "ids": [
     "a0WfQ000003ZH5uUAG",
@@ -87,27 +87,28 @@
     "a0WJ200000CDY9gMAH",
     "a0WJ200000CDYC7MAP",
     "a0WJ200000CDUhfMAH",
+    "a0WfQ000003l6UrUAI",
     "a0WJ200000CDaotMAD",
     "a0WJ200000CDZzQMAX",
-    "a0WJ200000CDbHxMAL",
-    "a0WfQ000003ENsfUAG",
     "a0WJ200000CDdtHMAT",
-    "a0W5h00000ZueXcEAJ",
+    "a0WfQ000003ENsfUAG",
     "a0WJ200000CDHQZMA5",
-    "a0WfQ000003MWE2UAO",
+    "a0W5h00000ZueXcEAJ",
+    "a0WJ200000CDbHxMAL",
     "a0WJ200000CDdPBMA1",
+    "a0WfQ000003MWE2UAO",
     "a0WJ200000CDXENMA5",
     "a0WJ200000CDYzVMAX",
     "a0WJ200000CDderMAD",
     "a0WJ200000CDXFhMAP",
     "a0WJ200000CDczHMAT",
     "a0WJ200000CDczMMAT",
-    "a0WfQ000003N8hVUAS",
     "a0WJ200000CDZ04MAH",
+    "a0WfQ000003N8hVUAS",
     "a0WJ200000CDZ1GMAX",
     "a0WfQ000003JPtqUAG",
-    "a0WJ200000CDbyjMAD",
     "a0WJ200000CDYUlMAP",
+    "a0WJ200000CDbyjMAD",
     "a0WJ200000CDY1fMAH",
     "a0WfQ000003BpWvUAK",
     "a0WJ200000CDVm7MAH",
@@ -115,9 +116,9 @@
     "a0WJ200000CDYfxMAH",
     "a0WJ200000CDYfwMAH",
     "a0WJ200000CDXjzMAH",
-    "a0WfQ000003cAFxUAM",
     "a0WJ200000CDUheMAH",
     "a0WfQ000003I9xZUAS",
+    "a0WfQ000003cAFxUAM",
     "a0WJ200000CDKZFMA5",
     "a0WfQ000003EZsDUAW",
     "a0WJ200000CDZ2OMAX",
@@ -132,13 +133,12 @@
     "a0WJ200000CDXRpMAP",
     "a0WJ200000CDYUXMA5",
     "a0WJ200000CDdfpMAD",
-    "a0WfQ000003EVJxUAO",
     "a0WJ200000CDY7KMAX",
     "a0WJ200000CDYkiMAH",
     "a0WJ200000CDbpCMAT",
     "a0W5h00000UbU66EAF",
-    "a0WJ200000CDZDHMA5",
     "a0WJ200000CDbPLMA1",
+    "a0WJ200000CDZDHMA5",
     "a0WJ200000CDYvPMAX",
     "a0WJ200000CDdtMMAT",
     "a0WJ200000CDY6GMAX",
@@ -147,9 +147,9 @@
     "a0WJ200000CDPyeMAH",
     "a0WJ200000CDXjwMAH",
     "a0WJ200000CDQEJMA5",
-    "a0WJ200000CDdjfMAD",
     "a0WJ200000CDYaFMAX",
     "a0WJ200000CDXqMMAX",
+    "a0WJ200000CDdjfMAD",
     "a0WJ200000CDddUMAT",
     "a0W5h00000UaiqSEAR",
     "a0WJ200000CDddVMAT",
@@ -169,11 +169,11 @@
     "a0WJ200000CDd3OMAT",
     "a0WJ200000CDYq2MAH",
     "a0WJ200000CDYvRMAX",
-    "a0WfQ000003iZLKUA2",
     "a0WJ200000CDdMCMA1",
-    "a0WJ200000CDY2TMAX",
     "a0WJ200000CDapWMAT",
+    "a0WfQ000003iZLKUA2",
     "a0WJ200000CDXmVMAX",
+    "a0WJ200000CDY2TMAX",
     "a0WJ200000CDYsRMAX",
     "a0WJ200000CDXFgMAP",
     "a0WJ200000CDXFiMAP",
@@ -218,19 +218,19 @@
     "a0WJ200000CDYW2MAP",
     "a0WfQ000003GpG9UAK",
     "a0WJ200000CDXk8MAH",
-    "a0WJ200000CDXscMAH",
     "a0WJ200000CDdm6MAD",
+    "a0WJ200000CDXscMAH",
     "a0WJ200000CDYh2MAH",
     "a0WJ200000CDY1kMAH",
-    "a0WfQ000003oIxhUAE",
     "a0WJ200000CDYW4MAP",
+    "a0WfQ000003oIxhUAE",
     "a0WJ200000CDY5VMAX",
     "a0W2x000005iqyXEAQ",
     "a0WJ200000CDYtoMAH",
     "a0W2x000007CStEEAW",
     "a0WJ200000CDdicMAD",
-    "a0WfQ000003a9flUAA",
     "a0W2x000007CStOEAW",
+    "a0WfQ000003a9flUAA",
     "a0WfQ000003I7R7UAK",
     "a0WfQ000003I7vlUAC",
     "a0WJ200000CDeTtMAL",
@@ -268,8 +268,8 @@
     "a0WJ200000CDYvnMAH",
     "a0WJ200000CDYviMAH",
     "a0WJ200000CDYumMAH",
-    "a0WJ200000CDYucMAH",
     "a0WJ200000CDYuhMAH",
+    "a0WJ200000CDYucMAH",
     "a0WJ200000CDYuSMAX",
     "a0WJ200000CDYuIMAX",
     "a0WJ200000CDY96MAH",
@@ -281,6 +281,7 @@
     "a0WJ200000CDYZ7MAP",
     "a0WJ200000CDXFjMAP",
     "a0WJ200000CDXORMA5",
+    "a0WfQ000003n4bqUAA",
     "a0WJ200000CDZIAMA5",
     "a0WJ200000CDXvUMAX",
     "a0WJ200000CDY1uMAH",
@@ -304,5 +305,5 @@
     "maxPerSearch": 100,
     "maxRequests": 1200
   },
-  "updatedAt": "2026-10-13T02:30:15.041Z"
+  "updatedAt": "2026-10-14T00:13:59.143Z"
 }
