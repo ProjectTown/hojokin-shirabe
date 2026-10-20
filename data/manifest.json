@@ -18,12 +18,12 @@
   ],
   "perCategory": {
     "設備整備・IT導入をしたい": {
-      "open": 83,
-      "collected": 83
+      "open": 82,
+      "collected": 82
     },
     "新たな事業を行いたい": {
-      "open": 63,
-      "collected": 63
+      "open": 62,
+      "collected": 62
     },
     "エコ・SDGs活動支援がほしい": {
       "open": 45,
@@ -46,8 +46,8 @@
       "collected": 22
     },
     "雇用・職場環境を改善したい": {
-      "open": 34,
-      "collected": 34
+      "open": 33,
+      "collected": 33
     },
     "資金繰りを改善したい": {
       "open": 17,
@@ -78,33 +78,33 @@
       "collected": 6
     }
   },
-  "totalOpen": 214,
-  "collected": 214,
+  "totalOpen": 213,
+  "collected": 213,
   "pending": 0,
   "ids": [
     "a0WfQ000003ZH5uUAG",
+    "a0WJ200000CDdtHMAT",
     "a0WJ200000CDeUgMAL",
     "a0WJ200000CDY9gMAH",
     "a0WJ200000CDYC7MAP",
     "a0WJ200000CDaotMAD",
     "a0WJ200000CDZzQMAX",
-    "a0WJ200000CDdtHMAT",
     "a0WJ200000CDHQZMA5",
     "a0WfQ000003ENsfUAG",
     "a0WJ200000CDdPBMA1",
-    "a0WfQ000003l6UrUAI",
     "a0WJ200000CDXENMA5",
     "a0WJ200000CDYzVMAX",
     "a0WJ200000CDderMAD",
+    "a0WfQ000003l6UrUAI",
     "a0WJ200000CDXFhMAP",
-    "a0WJ200000CDbHxMAL",
     "a0WJ200000CDczHMAT",
-    "a0WfQ000003MWE2UAO",
+    "a0WJ200000CDbHxMAL",
     "a0WJ200000CDczMMAT",
+    "a0WfQ000003MWE2UAO",
     "a0WJ200000CDZ04MAH",
     "a0WJ200000CDZ1GMAX",
-    "a0WfQ000003N8hVUAS",
     "a0WJ200000CDYUlMAP",
+    "a0WfQ000003N8hVUAS",
     "a0WJ200000CDVm7MAH",
     "a0WfQ000003JPtqUAG",
     "a0WJ200000CDY1fMAH",
@@ -127,8 +127,8 @@
     "a0WJ20000087jeOMAQ",
     "a0WJ200000CDeTAMA1",
     "a0WJ200000CDdfpMAD",
-    "a0WfQ000003lu8IUAQ",
     "a0WJ200000CDY7KMAX",
+    "a0WfQ000003lu8IUAQ",
     "a0WJ200000CDYkiMAH",
     "a0WJ200000CDbpCMAT",
     "a0W5h00000UbU66EAF",
@@ -141,8 +141,8 @@
     "a0WJ200000CDK76MAH",
     "a0WJ200000CDVkeMAH",
     "a0WJ200000CDPyeMAH",
-    "a0WJ200000CDXjwMAH",
     "a0WJ200000CDQEJMA5",
+    "a0WJ200000CDXjwMAH",
     "a0WJ200000CDYaFMAX",
     "a0WJ200000CDXqMMAX",
     "a0WJ200000CDddUMAT",
@@ -163,13 +163,12 @@
     "a0WJ200000CDZz6MAH",
     "a0WJ200000CDYq2MAH",
     "a0WJ200000CDd3OMAT",
-    "a0WJ200000CDdjfMAD",
     "a0WJ200000CDYvRMAX",
-    "a0WJ200000CDapWMAT",
     "a0WJ200000CDdMCMA1",
+    "a0WJ200000CDapWMAT",
     "a0WJ200000CDXmVMAX",
-    "a0WfQ000003iZLKUA2",
     "a0WJ200000CDY2TMAX",
+    "a0WfQ000003iZLKUA2",
     "a0WJ200000CDYsRMAX",
     "a0WJ200000CDXFgMAP",
     "a0WJ200000CDXFiMAP",
@@ -189,8 +188,8 @@
     "a0WJ200000CDYUPMA5",
     "a0WJ200000CDbz0MAD",
     "a0WJ200000CDJWIMA5",
-    "a0WJ200000CDacWMAT",
     "a0WJ200000CDYvXMAX",
+    "a0WJ200000CDacWMAT",
     "a0WJ200000CDYTvMAP",
     "a0WJ200000CDMSsMAP",
     "a0WJ200000CDYUQMA5",
@@ -238,8 +237,8 @@
     "a0WJ200000CDdABMA1",
     "a0WJ200000CDYUmMAP",
     "a0WfQ000003kpc5UAA",
-    "a0WfQ000003kp5pUAA",
     "a0WJ200000CDY72MAH",
+    "a0WfQ000003kp5pUAA",
     "a0WfQ000003kpQnUAI",
     "a0WJ200000CDYbNMAX",
     "a0WfQ000003Bf7lUAC",
@@ -249,8 +248,8 @@
     "a0WJ200000CDXk9MAH",
     "a0WJ200000CDY1zMAH",
     "a0WJ200000CDVn4MAH",
-    "a0WJ200000CDdNtMAL",
     "a0WJ200000CDVn9MAH",
+    "a0WJ200000CDdNtMAL",
     "a0WJ200000CDYffMAH",
     "a0WJ200000CDYW1MAP",
     "a0W2x000007CrSAEA0",
@@ -267,8 +266,8 @@
     "a0WJ200000CDYvnMAH",
     "a0WJ200000CDYviMAH",
     "a0WJ200000CDYumMAH",
-    "a0WJ200000CDYuhMAH",
     "a0WJ200000CDYucMAH",
+    "a0WJ200000CDYuhMAH",
     "a0WJ200000CDYuSMAX",
     "a0WJ200000CDYuIMAX",
     "a0WJ200000CDY96MAH",
@@ -301,5 +300,5 @@
     "maxPerSearch": 100,
     "maxRequests": 1200
   },
-  "updatedAt": "2026-10-20T00:12:00.210Z"
+  "updatedAt": "2026-10-20T23:44:30.690Z"
 }
