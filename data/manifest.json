@@ -18,8 +18,8 @@
   ],
   "perCategory": {
     "設備整備・IT導入をしたい": {
-      "open": 74,
-      "collected": 74
+      "open": 73,
+      "collected": 73
     },
     "新たな事業を行いたい": {
       "open": 57,
@@ -46,8 +46,8 @@
       "collected": 21
     },
     "雇用・職場環境を改善したい": {
-      "open": 35,
-      "collected": 35
+      "open": 34,
+      "collected": 34
     },
     "資金繰りを改善したい": {
       "open": 16,
@@ -78,32 +78,31 @@
       "collected": 6
     }
   },
-  "totalOpen": 195,
-  "collected": 195,
+  "totalOpen": 194,
+  "collected": 194,
   "pending": 0,
   "ids": [
     "a0WJ200000CDY9gMAH",
     "a0WfQ000003ZH5uUAG",
     "a0WJ200000CDdtHMAT",
-    "a0WJ200000CDRArMAP",
     "a0WJ200000CDYC7MAP",
+    "a0WJ200000CDRArMAP",
     "a0WJ200000CDZzQMAX",
     "a0WJ200000CDZ04MAH",
-    "a0WJ200000CDUheMAH",
     "a0WJ200000CDHQZMA5",
     "a0WfQ000003ENsfUAG",
-    "a0WfQ000004BTqnUAG",
     "a0WJ200000CDYzVMAX",
     "a0WJ200000CDZ1GMAX",
     "a0WJ200000CDXENMA5",
-    "a0WfQ000004CHdtUAG",
+    "a0WfQ000004BTqnUAG",
     "a0WJ200000CDdPBMA1",
+    "a0WfQ000004CHdtUAG",
     "a0WJ200000CDXFhMAP",
     "a0WJ200000CDderMAD",
-    "a0WJ20000087jeOMAQ",
     "a0WfQ000003dVevUAE",
-    "a0WfQ000003MWE2UAO",
+    "a0WJ20000087jeOMAQ",
     "a0WJ200000CDYUlMAP",
+    "a0WfQ000003MWE2UAO",
     "a0WJ200000CDbHxMAL",
     "a0WJ200000CDY1fMAH",
     "a0WJ200000CDYfxMAH",
@@ -123,9 +122,9 @@
     "a0WJ200000CDYUXMA5",
     "a0WJ200000CDXRpMAP",
     "a0WfQ000003cAFxUAM",
-    "a0W5h00000UaiqSEAR",
     "a0WJ200000CDeTAMA1",
     "a0WJ200000CDdfpMAD",
+    "a0W5h00000UaiqSEAR",
     "a0WJ200000CDY7KMAX",
     "a0WfQ0000047HWTUA2",
     "a0WJ200000CDYvPMAX",
@@ -163,11 +162,11 @@
     "a0WfQ000003zgNCUAY",
     "a0WJ200000CDXmVMAX",
     "a0WJ200000CDY2TMAX",
-    "a0WJ200000CDMQvMAP",
     "a0WJ200000CDXFgMAP",
     "a0WJ200000CDXFiMAP",
     "a0WJ200000CDXFfMAP",
     "a0WJ200000CDYsRMAX",
+    "a0WJ200000CDMQvMAP",
     "a0WJ200000CDYW5MAP",
     "a0WJ200000CDXK4MAP",
     "a0WJ200000CDYW6MAP",
@@ -282,5 +281,5 @@
     "maxPerSearch": 100,
     "maxRequests": 1200
   },
-  "updatedAt": "2026-11-16T00:53:57.896Z"
+  "updatedAt": "2026-11-17T03:37:34.809Z"
 }
